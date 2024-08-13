@@ -5,6 +5,8 @@ import { loginAction } from "../../../redux/Actions/authActions";
 import { ReducersType, RootState } from "../../../redux/Store/store";
 import { ThunkDispatch } from "redux-thunk";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import PulseLoader from "react-spinners/PulseLoader";
 import { ReduxResponseType } from "../../../redux/Types/todoTypes";
 
 const LoginScreen: React.FC = () => {
@@ -19,40 +21,60 @@ const LoginScreen: React.FC = () => {
   ) as ReduxResponseType;
 
   useEffect(() => {
-    console.log("LoginScreen useEffect triggered");
-    console.log("Success:", success);
-    console.log("Server Response:", serverResponse);
+    if (success && serverResponse) {
+      // Display success message
+      Swal.fire({
+        icon: "success",
+        title: "Successful",
+        timer: 3000,
+        text: serverResponse?.message,
+      });
 
-    if (success) {
-      console.log("Login successful:", serverResponse);
-      const user = serverResponse?.data;
+      // Handle role-based navigation
+      const token = serverResponse?.data?.token;
 
-      setTimeout(() => {
-        if (user?.role === "admin") {
-          console.log("Redirecting to admin dashboard");
-          navigate("/admin-dashboard");
-        } else if (user?.role === "user") {
-          console.log("Redirecting to user dashboard:", user?.id);
-          navigate(`/user-dashboard/${user?.id}`);
-        } else {
-          console.log("No role or redirect path found");
+      if (token) {
+        try {
+          // Decode the token to extract user information
+          const decodedToken = JSON.parse(atob(token.split(".")[1]));
+          console.log("Decoded token:", decodedToken);
+
+          // Assuming the role might be nested within 'fieldToSecure'
+          const userRole = decodedToken?.fieldToSecure?.type; // Adjust based on the actual structure of the token
+          console.log("User role:", userRole);
+
+          if (userRole) {
+            if (userRole === "admin") {
+              navigate("/admin-dashboard");
+            } else if (userRole === "user") {
+              navigate("/user-dashboard");
+            }
+          } else {
+            console.log("User role is undefined.");
+          }
+        } catch (error) {
+          console.error("Error decoding token:", error);
         }
+      } else {
+        console.log("Token is undefined or null.");
+      }
 
-        // Reset form data
-        setUsername("");
-        setPassword("");
-
-        // Optionally dispatch a reset action for login state
-        // dispatch({ type: LOGIN_RESET });
-      }, 4000);
+      // Reset form data
+      setUsername("");
+      setPassword("");
     } else if (error) {
-      console.log("Login error:", error);
+      // Display error message
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        timer: 5000,
+        text: error,
+      });
     }
   }, [success, navigate, serverResponse, error]);
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted with:", { username, password });
     dispatch(loginAction({ username, password }));
   };
 
@@ -82,7 +104,13 @@ const LoginScreen: React.FC = () => {
             disabled={loading}
             className="w-full py-3 bg-purple-600 text-white font-bold rounded-md hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-300 transition duration-300 disabled:opacity-50"
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? (
+              <div className="" style={{ height: "25px" }}>
+                <PulseLoader color="#ffffff" />
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
         {loading && (
