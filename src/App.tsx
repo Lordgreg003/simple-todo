@@ -9,8 +9,7 @@ import RegisterScreen from "./screens/auth/RegisterScreen";
 import LoginScreen from "./screens/auth/LoginScreen";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import UserDashboard from "./screens/users/UserDashboard";
-import { useSelector } from "react-redux";
-import { RootState } from "./redux/Store/store";
+import AdminTodos from "./screens/admin/AdminTodos";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -22,6 +21,10 @@ const App: React.FC = () => {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
+
+        {/* admin todo management route */}
+        {/* <Route path="/getalltodos" element={<AdminTodos />} /> */}
+        <Route path="/admin-dashboard/getAlltodos" element={<AdminTodos />} />
       </Routes>
     </Router>
   );

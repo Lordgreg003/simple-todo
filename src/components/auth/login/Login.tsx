@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import PulseLoader from "react-spinners/PulseLoader";
 import { ReduxResponseType } from "../../../redux/Types/todoTypes";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const LoginScreen: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -32,6 +33,7 @@ const LoginScreen: React.FC = () => {
 
       // Handle role-based navigation
       const token = serverResponse?.data?.token;
+      console.log(token);
 
       if (token) {
         try {
@@ -119,6 +121,14 @@ const LoginScreen: React.FC = () => {
         {error && (
           <p className="text-center text-red-500 mt-4">Error: {error}</p>
         )}
+        <div className="text-center mt-4">
+          <p className="text-gray-600">
+            Don't have an account?{" "}
+            <Link to={"/"} className="text-purple-600 hover:underline">
+              Register here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
