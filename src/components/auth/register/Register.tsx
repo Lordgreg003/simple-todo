@@ -18,11 +18,12 @@ const RegisterComponent = () => {
   const { loading, error, success } = useSelector(
     (state: RootState) => state.registerUser
   );
+  console.log(success);
 
   useEffect(() => {
     if (success) {
       setSuccessMessage("Registration Successful!");
-      setTimeout(() => navigate("/login"), 3000); // Redirect to home page after 3 seconds
+      // setTimeout(() => navigate("/login"), 3000); // Redirect to home page after 3 seconds
     }
   }, [success]);
 
