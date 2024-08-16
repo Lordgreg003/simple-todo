@@ -21,3 +21,18 @@ export type adminUpdateTodoType = {
   password: string;
   id?: string;
 };
+
+export type adminUpdateUserType = {
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  id?: string;
+};
+
+export type adminCreateTodoType = {
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+};

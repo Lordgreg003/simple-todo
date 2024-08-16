@@ -8,6 +8,7 @@ import AdminTodos from "./screens/admin/AdminTodos";
 import AdminViewTodos from "./screens/admin/AdminViewTodos";
 import AdminUpdateTodo from "./screens/admin/AdminUpdateTodo";
 import AdminUsers from "./screens/admin/AdminUsers";
+import UserProfileScreen from "./screens/users/UserProfileScreen";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -29,6 +30,12 @@ const App: React.FC = () => {
         {/* admin users managment */}
 
         <Route path="/admin-dashboard/manage-users" element={<AdminUsers />} />
+
+        {/* user profile */}
+        <Route
+          path="/user-dashboard/profile/:id"
+          element={<UserProfileScreen />}
+        />
       </Routes>
     </Router>
   );

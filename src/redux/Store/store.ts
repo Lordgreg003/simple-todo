@@ -8,7 +8,14 @@ import {
   AdminGetTodoByIdReducer,
   AdminUpdateTodoReducer,
 } from "../Reducers/admin/AdmintodoReducer";
-import { adminGetUsersReducer } from "../Reducers/admin/AdminuserReducer";
+import {
+  adminGetUsersReducer,
+  adminCreateTodoReducer,
+  adminDeleteTodoReducer,
+  adminGetTodoByIdReducer,
+  adminUpdateUserReducer,
+} from "../Reducers/admin/AdminuserReducer";
+import { GetProfileByIdReducer } from "../Reducers/users/profile/UserProfileReducer";
 import { registerUserReducer, loginReducer } from "../Reducers/AuthReducers";
 import { ReduxResponseType } from "../Types/todoTypes";
 import { LOGIN_SESSION } from "../../extrastorage/storageStore";
@@ -26,10 +33,15 @@ export interface RootState {
   adminUpdateTodo: ReduxResponseType;
 
   // admin users state
+  adminCreateUser: ReduxResponseType;
   adminGetAllusers: ReduxResponseType;
   adminDeleteuser: ReduxResponseType;
   adminGetByIduser: ReduxResponseType;
   adminUpdateuser: ReduxResponseType;
+
+  // user profile
+  getUserProfile: ReduxResponseType;
+  updateUserprofile: ReduxResponseType;
 }
 
 export type ReducersType = {
@@ -44,10 +56,14 @@ export type ReducersType = {
   adminUpdateTodo: ReduxResponseType;
 
   // admin users state
+  adminCreateUser: ReduxResponseType;
   adminGetAllusers: ReduxResponseType;
   adminDeleteuser: ReduxResponseType;
   adminGetByIduser: ReduxResponseType;
   adminUpdateuser: ReduxResponseType;
+
+  // user profile
+  getUserProfile: ReduxResponseType;
 };
 
 // Combine the reducers
@@ -63,10 +79,14 @@ const reducer = combineReducers<ReducersType>({
   adminUpdateTodo: AdminUpdateTodoReducer,
 
   // admin users state
+  adminCreateUser: adminCreateTodoReducer,
   adminGetAllusers: adminGetUsersReducer,
-  adminDeleteuser: adminGetUsersReducer,
-  adminGetByIduser: adminGetUsersReducer,
-  adminUpdateuser: adminGetUsersReducer,
+  adminDeleteuser: adminDeleteTodoReducer,
+  adminGetByIduser: adminGetTodoByIdReducer,
+  adminUpdateuser: adminUpdateUserReducer,
+
+  // user profile
+  getUserProfile: GetProfileByIdReducer,
 });
 
 // Define Thunk result type

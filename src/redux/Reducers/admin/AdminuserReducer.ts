@@ -53,3 +53,123 @@ export const adminGetUsersReducer = (
       return state;
   }
 };
+
+export const adminDeleteTodoReducer = (
+  state: ReduxResponseType = initialState,
+  action: ActionType
+) => {
+  switch (action.type) {
+    case ADMIN_DELETE_USER_REQUEST:
+      return { ...initialState, loading: true };
+    case ADMIN_DELETE_USER_SUCCESS:
+      return {
+        ...initialState,
+        loading: false,
+        success: true,
+        serverResponse: action.payload.data,
+      };
+    case ADMIN_DELETE_USER_FAIL:
+      return {
+        ...initialState,
+        loading: false,
+        success: false,
+        error: action.payload,
+      };
+    case ADMIN_DELETE_USER_RESET:
+    case LOGIN_RESET:
+      return { ...initialState };
+
+    default:
+      return state;
+  }
+};
+
+export const adminCreateTodoReducer = (
+  state: ReduxResponseType = initialState,
+  action: ActionType
+) => {
+  switch (action.type) {
+    case ADMIN_CREATE_USER_REQUEST:
+      return { ...initialState, loading: true };
+    case ADMIN_CREATE_USER_SUCCESS:
+      return {
+        ...initialState,
+        loading: false,
+        success: true,
+        serverResponse: action.payload,
+      };
+    case ADMIN_CREATE_USER_FAIL:
+      return {
+        ...initialState,
+        loading: false,
+        success: false,
+        error: action.payload,
+      };
+    case ADMIN_CREATE_USER_RESET:
+    case LOGIN_RESET:
+      return { ...initialState };
+
+    default:
+      return state;
+  }
+};
+
+export const adminGetTodoByIdReducer = (
+  state: ReduxResponseType = initialState,
+  action: ActionType
+) => {
+  switch (action.type) {
+    case ADMIN_GETBYID_USER_REQUEST:
+      return { ...initialState, loading: true };
+    case ADMIN_GETBYID_USER_SUCCESS:
+      return {
+        ...initialState,
+        loading: false,
+        success: true,
+        serverResponse: action.payload,
+      };
+    case ADMIN_GETBYID_USER_FAIL:
+      return {
+        ...initialState,
+        loading: false,
+        success: false,
+        error: action.payload,
+      };
+    case ADMIN_GETBYID_USER_RESET:
+    case LOGIN_RESET:
+      return { ...initialState };
+
+    default:
+      return state;
+  }
+};
+
+export const adminUpdateUserReducer = (
+  state: ReduxResponseType = initialState,
+  action: ActionType
+) => {
+  switch (action.type) {
+    case ADMIN_UPDATE_USER_REQUEST:
+      return { ...initialState, loading: true };
+    case ADMIN_UPDATE_USER_SUCCESS:
+      return {
+        ...initialState,
+        loading: false,
+        success: true,
+        serverResponse: action.payload,
+      };
+    case ADMIN_UPDATE_USER_FAIL:
+      return {
+        ...initialState,
+        loading: false,
+        success: false,
+        error: action.payload,
+      };
+    case ADMIN_UPDATE_USER_RESET:
+    case LOGIN_RESET:
+      return { ...initialState };
+
+    default:
+      return state;
+  }
+};
