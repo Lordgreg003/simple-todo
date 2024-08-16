@@ -68,7 +68,7 @@ const GetAllTodos: React.FC = () => {
         {/* Back Button */}
         <div className="mb-4">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/admin-dashboard")}
             className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
           >
             Back
@@ -141,7 +141,7 @@ const GetAllTodos: React.FC = () => {
                         View
                       </Link>
                       <Link
-                        to={`/update/${task._id}`}
+                        to={`/admin-dashboard/edit/${task._id}`}
                         className="text-blue-500 hover:text-blue-700 block sm:inline-block"
                       >
                         Update

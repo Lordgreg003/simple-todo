@@ -6,6 +6,8 @@ import AdminDashboard from "./screens/admin/AdminDashboard";
 import UserDashboard from "./screens/users/UserDashboard";
 import AdminTodos from "./screens/admin/AdminTodos";
 import AdminViewTodos from "./screens/admin/AdminViewTodos";
+import AdminUpdateTodo from "./screens/admin/AdminUpdateTodo";
+import AdminUsers from "./screens/admin/AdminUsers";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -22,6 +24,11 @@ const App: React.FC = () => {
         {/* <Route path="/getalltodos" element={<AdminTodos />} /> */}
         <Route path="/admin-dashboard/getAlltodos" element={<AdminTodos />} />
         <Route path="/admin-dashboard/view/:id" element={<AdminViewTodos />} />
+        <Route path="/admin-dashboard/edit/:id" element={<AdminUpdateTodo />} />
+
+        {/* admin users managment */}
+
+        <Route path="/admin-dashboard/manage-users" element={<AdminUsers />} />
       </Routes>
     </Router>
   );

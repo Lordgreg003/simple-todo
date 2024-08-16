@@ -11,6 +11,10 @@ import {
   ADMIN_GETBYID_TODO_SUCCESS,
   ADMIN_GETBYID_TODO_FAIL,
   ADMIN_GETBYID_TODO_RESET,
+  ADMIN_UPDATE_TODO_REQUEST,
+  ADMIN_UPDATE_TODO_SUCCESS,
+  ADMIN_UPDATE_TODO_FAIL,
+  ADMIN_UPDATE_TODO_RESET,
 } from "../../Constants/admin/AdmintodoConstants";
 import { LOGIN_RESET } from "../../Constants/authConstants";
 import { initialState } from "../../Initial-State/initialState";
@@ -88,16 +92,46 @@ export const AdminGetTodoByIdReducer = (
         ...initialState,
         loading: false,
         success: true,
-        serverResponse: action.payload.data,
+        serverResponse: action.payload,
       };
     case ADMIN_GETBYID_TODO_FAIL:
       return {
         ...initialState,
         loading: false,
         success: false,
-        error: action.payload.data,
+        error: action.payload,
       };
     case ADMIN_GETBYID_TODO_RESET:
+    case LOGIN_RESET:
+      return { ...initialState };
+
+    default:
+      return state;
+  }
+};
+
+export const AdminUpdateTodoReducer = (
+  state: ReduxResponseType = initialState,
+  action: ActionType
+) => {
+  switch (action.type) {
+    case ADMIN_UPDATE_TODO_REQUEST:
+      return { ...initialState, loading: true };
+    case ADMIN_UPDATE_TODO_SUCCESS:
+      return {
+        ...initialState,
+        loading: false,
+        success: true,
+        serverResponse: action.payload,
+      };
+    case ADMIN_UPDATE_TODO_FAIL:
+      return {
+        ...initialState,
+        loading: false,
+        success: false,
+        error: action.payload,
+      };
+    case ADMIN_UPDATE_TODO_RESET:
     case LOGIN_RESET:
       return { ...initialState };
 
