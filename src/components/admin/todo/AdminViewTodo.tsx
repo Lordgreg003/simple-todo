@@ -6,14 +6,6 @@ import { ReducersType } from "../../../redux/Store/store";
 import { ThunkDispatch } from "redux-thunk";
 import { RootState } from "../../../redux/Store/store";
 
-interface Task {
-  username: string;
-  email: string;
-  title: string;
-  status: boolean;
-  createdAt: string;
-}
-
 const AdminViewTodo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
@@ -28,33 +20,61 @@ const AdminViewTodo: React.FC = () => {
     }
   }, [dispatch, id]);
 
-  if (loading) return <div className="loader">Loading...</div>;
-  if (error) return <div className="text-red-500">Error: {error}</div>;
-  if (!serverResponse || !serverResponse.data) return <div>No data found</div>;
+  if (loading) return <div className="text-center py-10">Loading...</div>;
+  if (error)
+    return (
+      <div className="text-center py-10 text-red-500">
+        Error: {error.message || error}
+      </div>
+    );
+  if (!serverResponse || !serverResponse.data)
+    return <div className="text-center py-10">No data found</div>;
 
-  const task: Task = serverResponse.data;
+  const task = serverResponse.data;
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-md">
-      <h1 className="text-2xl font-bold mb-4">Task Detail</h1>
-      <p className="mb-2">
-        <strong>Name:</strong> {task.username}
-      </p>
-      <p className="mb-2">
-        <strong>Email:</strong> {task.email}
-      </p>
-      <p className="mb-2">
-        <strong>Title:</strong> {task.title}
-      </p>
-      <p className="mb-2">
-        <strong>Status:</strong> {task.status ? "Completed" : "Pending"}
-      </p>
-      <p className="mb-4">
-        <strong>Created At:</strong> {new Date(task.createdAt).toLocaleString()}
-      </p>
-      <Link to="/" className="text-blue-500 hover:underline">
-        Back to List
-      </Link>
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+      <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
+        <h1 className="text-3xl font-semibold text-gray-800 mb-4">
+          Task Details
+        </h1>
+        <div className="space-y-4">
+          <div>
+            <span className="font-medium text-gray-600">Name:</span>
+            <p className="text-lg text-gray-800">{task.username}</p>
+          </div>
+          <div>
+            <span className="font-medium text-gray-600">Email:</span>
+            <p className="text-lg text-gray-800">{task.email}</p>
+          </div>
+          <div>
+            <span className="font-medium text-gray-600">Title:</span>
+            <p className="text-lg text-gray-800">{task.title}</p>
+          </div>
+          <div>
+            <span className="font-medium text-gray-600">Status:</span>
+            <p
+              className={`text-lg ${
+                task.status ? "text-green-600" : "text-yellow-600"
+              }`}
+            >
+              {task.status ? "Completed" : "Pending"}
+            </p>
+          </div>
+          <div>
+            <span className="font-medium text-gray-600">Created At:</span>
+            <p className="text-lg text-gray-800">
+              {new Date(task.createdAt).toLocaleString()}
+            </p>
+          </div>
+        </div>
+        <Link
+          to="/admin-dashboard/getAlltodos"
+          className="mt-6 inline-block text-center w-full py-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600 transition"
+        >
+          Back to List
+        </Link>
+      </div>
     </div>
   );
 };

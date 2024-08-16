@@ -13,3 +13,11 @@ export type adminCreateUserType = {
   email: string;
   password: string;
 };
+
+export type adminUpdateTodoType = {
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  id?: string;
+};

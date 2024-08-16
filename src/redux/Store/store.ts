@@ -6,7 +6,9 @@ import {
   AdminGetAllTodoReducer,
   AdminDeleteTodoReducer,
   AdminGetTodoByIdReducer,
+  AdminUpdateTodoReducer,
 } from "../Reducers/admin/AdmintodoReducer";
+import { adminGetUsersReducer } from "../Reducers/admin/AdminuserReducer";
 import { registerUserReducer, loginReducer } from "../Reducers/AuthReducers";
 import { ReduxResponseType } from "../Types/todoTypes";
 import { LOGIN_SESSION } from "../../extrastorage/storageStore";
@@ -21,6 +23,13 @@ export interface RootState {
   adminGetAllTodo: ReduxResponseType;
   adminDeleteTodo: ReduxResponseType;
   adminGetByIdTodo: ReduxResponseType;
+  adminUpdateTodo: ReduxResponseType;
+
+  // admin users state
+  adminGetAllusers: ReduxResponseType;
+  adminDeleteuser: ReduxResponseType;
+  adminGetByIduser: ReduxResponseType;
+  adminUpdateuser: ReduxResponseType;
 }
 
 export type ReducersType = {
@@ -32,6 +41,13 @@ export type ReducersType = {
   adminGetAllTodo: ReduxResponseType;
   adminDeleteTodo: ReduxResponseType;
   adminGetByIdTodo: ReduxResponseType;
+  adminUpdateTodo: ReduxResponseType;
+
+  // admin users state
+  adminGetAllusers: ReduxResponseType;
+  adminDeleteuser: ReduxResponseType;
+  adminGetByIduser: ReduxResponseType;
+  adminUpdateuser: ReduxResponseType;
 };
 
 // Combine the reducers
@@ -44,6 +60,13 @@ const reducer = combineReducers<ReducersType>({
   adminGetAllTodo: AdminGetAllTodoReducer,
   adminDeleteTodo: AdminDeleteTodoReducer,
   adminGetByIdTodo: AdminGetTodoByIdReducer,
+  adminUpdateTodo: AdminUpdateTodoReducer,
+
+  // admin users state
+  adminGetAllusers: adminGetUsersReducer,
+  adminDeleteuser: adminGetUsersReducer,
+  adminGetByIduser: adminGetUsersReducer,
+  adminUpdateuser: adminGetUsersReducer,
 });
 
 // Define Thunk result type

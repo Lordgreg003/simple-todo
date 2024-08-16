@@ -16,11 +16,17 @@ import {
   ADMIN_GETBYID_TODO_REQUEST,
   ADMIN_GETBYID_TODO_SUCCESS,
   ADMIN_GETBYID_TODO_FAIL,
+  ADMIN_UPDATE_TODO_REQUEST,
+  ADMIN_UPDATE_TODO_SUCCESS,
+  ADMIN_UPDATE_TODO_FAIL,
   // ADMIN_GETBYID_TODO_RESET
 } from "../../Constants/admin/AdmintodoConstants";
 import { ReduxResponseType } from "../../Types/todoTypes";
 import { LoginResponseType } from "../../Types/authTypes";
-import { adminCreateUserType } from "../../Types/admin/adminTypes";
+import {
+  adminCreateUserType,
+  adminUpdateTodoType,
+} from "../../Types/admin/adminTypes";
 
 export const AdminGetAllTodosAction =
   (): ThunkResult<void> => async (dispatch: Dispatch, getState: any) => {
@@ -208,6 +214,52 @@ export const AdminGetTodoByIdAction =
     } catch (error: any) {
       dispatch({
         type: ADMIN_GETBYID_TODO_FAIL,
+        payload:
+          error?.response && error.response?.data?.message
+            ? error?.response?.data?.message
+            : error?.message,
+      });
+    }
+  };
+
+export const AdminUpdateTodoAction =
+  ({
+    name,
+    email,
+    password,
+    username,
+    id,
+  }: adminUpdateTodoType): ThunkResult<void> =>
+  async (dispatch: Dispatch, getState: any) => {
+    try {
+      dispatch({
+        type: ADMIN_UPDATE_TODO_REQUEST,
+      });
+
+      const state = getState();
+      const loginUser: ReduxResponseType<LoginResponseType> = state?.loginUser;
+      const token = loginUser?.serverResponse?.data?.token;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `${API_ROUTES.adminTodos.update}${id}`,
+        { name, password, username, email },
+        config
+      );
+
+      dispatch({
+        type: ADMIN_UPDATE_TODO_SUCCESS,
+        payload: data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: ADMIN_UPDATE_TODO_FAIL,
         payload:
           error?.response && error.response?.data?.message
             ? error?.response?.data?.message
