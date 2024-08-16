@@ -1,15 +1,11 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegisterScreen from "./screens/auth/RegisterScreen";
 import LoginScreen from "./screens/auth/LoginScreen";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import UserDashboard from "./screens/users/UserDashboard";
 import AdminTodos from "./screens/admin/AdminTodos";
+import AdminViewTodos from "./screens/admin/AdminViewTodos";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -25,6 +21,7 @@ const App: React.FC = () => {
         {/* admin todo management route */}
         {/* <Route path="/getalltodos" element={<AdminTodos />} /> */}
         <Route path="/admin-dashboard/getAlltodos" element={<AdminTodos />} />
+        <Route path="/admin-dashboard/view/:id" element={<AdminViewTodos />} />
       </Routes>
     </Router>
   );

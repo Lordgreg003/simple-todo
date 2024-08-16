@@ -33,17 +33,17 @@ const LoginScreen: React.FC = () => {
 
       // Handle role-based navigation
       const token = serverResponse?.data?.token;
-      console.log(token);
+      // console.log(token);
 
       if (token) {
         try {
           // Decode the token to extract user information
           const decodedToken = JSON.parse(atob(token.split(".")[1]));
-          console.log("Decoded token:", decodedToken);
+          // console.log("Decoded token:", decodedToken);
 
           // Assuming the role might be nested within 'fieldToSecure'
           const userRole = decodedToken?.fieldToSecure?.type; // Adjust based on the actual structure of the token
-          console.log("User role:", userRole);
+          // console.log("User role:", userRole);
 
           if (userRole) {
             if (userRole === "admin") {

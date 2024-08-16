@@ -19,6 +19,7 @@ export const API_ROUTES = {
 
   // Admin Todo Management
   adminTodos: {
+    create: BASE + "/api/admin/create/todo", // POST
     update: BASE + "/api/admin/update/todo/", // PUT :id
     delete: BASE + "/api/admin/delete/todo/", // DELETE :id
     getById: BASE + "/api/admin/getbyid/todo/", // GET :id

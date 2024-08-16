@@ -46,15 +46,15 @@ export const loginReducer = (
   state: ReduxResponseType = initialState,
   action: ActionType
 ): ReduxResponseType => {
-  console.log("loginReducer action received:", action);
+  // console.log("loginReducer action received:", action);
 
   switch (action.type) {
     case LOGIN_REQUEST:
-      console.log("Handling LOGIN_REQUEST");
+      // console.log("Handling LOGIN_REQUEST");
       return { ...initialState, loading: true };
 
     case LOGIN_SUCCESS:
-      console.log("Handling LOGIN_SUCCESS with payload:", action.payload);
+      // console.log("Handling LOGIN_SUCCESS with payload:", action.payload);
 
       let login: ReduxResponseType<LoginResponseType> = { ...initialState };
 
@@ -78,14 +78,14 @@ export const loginReducer = (
             error: "",
           };
 
-          console.log("Decoded token:", decodedToken);
+          // console.log("Decoded token:", decodedToken);
 
           // Store login session in localStorage
           if (typeof window !== "undefined") {
             localStorage.setItem(LOGIN_SESSION, JSON.stringify(login));
           }
         } catch (error) {
-          console.error("Error decoding token:", error);
+          // console.error("Error decoding token:", error);
           return {
             ...initialState,
             loading: false,
@@ -94,7 +94,7 @@ export const loginReducer = (
           };
         }
       } else {
-        console.warn("Empty token in LOGIN_SUCCESS payload");
+        // console.warn("Empty token in LOGIN_SUCCESS payload");
         return {
           ...initialState,
           loading: false,
@@ -106,7 +106,7 @@ export const loginReducer = (
       return login;
 
     case LOGIN_FAIL:
-      console.log("Handling LOGIN_FAIL with error:", action.payload);
+      // console.log("Handling LOGIN_FAIL with error:", action.payload);
       return {
         ...initialState,
         loading: false,
@@ -115,7 +115,7 @@ export const loginReducer = (
       };
 
     case LOGIN_RESET:
-      console.log("Handling LOGIN_RESET");
+      // console.log("Handling LOGIN_RESET");
       return {
         ...state,
         success: false,
@@ -124,7 +124,7 @@ export const loginReducer = (
       };
 
     default:
-      console.warn("Unhandled action type:", action.type);
+      // console.warn("Unhandled action type:", action.type);
       return state;
   }
 };

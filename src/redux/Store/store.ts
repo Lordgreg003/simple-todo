@@ -5,6 +5,7 @@ import { initialState as initialStateReducer } from "../Initial-State/initialSta
 import {
   AdminGetAllTodoReducer,
   AdminDeleteTodoReducer,
+  AdminGetTodoByIdReducer,
 } from "../Reducers/admin/AdmintodoReducer";
 import { registerUserReducer, loginReducer } from "../Reducers/AuthReducers";
 import { ReduxResponseType } from "../Types/todoTypes";
@@ -19,6 +20,7 @@ export interface RootState {
   // Admin todo state
   adminGetAllTodo: ReduxResponseType;
   adminDeleteTodo: ReduxResponseType;
+  adminGetByIdTodo: ReduxResponseType;
 }
 
 export type ReducersType = {
@@ -29,6 +31,7 @@ export type ReducersType = {
   // Admin
   adminGetAllTodo: ReduxResponseType;
   adminDeleteTodo: ReduxResponseType;
+  adminGetByIdTodo: ReduxResponseType;
 };
 
 // Combine the reducers
@@ -40,6 +43,7 @@ const reducer = combineReducers<ReducersType>({
   // Admin todo
   adminGetAllTodo: AdminGetAllTodoReducer,
   adminDeleteTodo: AdminDeleteTodoReducer,
+  adminGetByIdTodo: AdminGetTodoByIdReducer,
 });
 
 // Define Thunk result type
