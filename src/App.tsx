@@ -9,6 +9,11 @@ import AdminViewTodos from "./screens/admin/AdminViewTodos";
 import AdminUpdateTodo from "./screens/admin/AdminUpdateTodo";
 import AdminUsers from "./screens/admin/AdminUsers";
 import UserProfileScreen from "./screens/users/UserProfileScreen";
+import AdminCreateUsersScreen from "./screens/admin/AdminCreateUsersScreen";
+import AdminViewUserScreen from "./components/AdminViewUserScreen";
+import AdminUpdateUserScreen from "./screens/admin/AdminUpdateUserScreen";
+import GetAllUserTodoScreen from "./screens/users/GetAllUserTodoScreen";
+import CreateUserTodoScreen from "./screens/users/CreateUserTodoScreen";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -30,11 +35,35 @@ const App: React.FC = () => {
         {/* admin users managment */}
 
         <Route path="/admin-dashboard/manage-users" element={<AdminUsers />} />
+        <Route
+          path="/admin-dashboard/manage-users/create"
+          element={<AdminCreateUsersScreen />}
+        />
+        <Route
+          path="/admin-dashboard/manage-users/view/:id"
+          element={<AdminViewUserScreen />}
+        />
+
+        <Route
+          path="/admin-dashboard/manage-users/edit/:id"
+          element={<AdminUpdateUserScreen />}
+        />
 
         {/* user profile */}
         <Route
           path="/user-dashboard/profile/:id"
           element={<UserProfileScreen />}
+        />
+
+        {/* user Todo */}
+        <Route
+          path="/user-dashboard/getall"
+          element={<GetAllUserTodoScreen />}
+        />
+
+        <Route
+          path="/user-dashboard/getall/create"
+          element={<CreateUserTodoScreen />}
         />
       </Routes>
     </Router>

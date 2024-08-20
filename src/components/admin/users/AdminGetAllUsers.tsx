@@ -77,7 +77,7 @@ const GetAllTodos: React.FC = () => {
 
         <div className="flex justify-end mb-4">
           <Link
-            to="/create"
+            to="/admin-dashboard/manage-users/create"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Create New Task
@@ -135,13 +135,13 @@ const GetAllTodos: React.FC = () => {
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm space-y-2 sm:space-y-0 sm:space-x-2">
                       <Link
-                        to={`/admin-dashboard/view/${task._id}`}
+                        to={`/admin-dashboard/manage-users/view/${task._id}`}
                         className="text-blue-500 hover:text-blue-700 block sm:inline-block"
                       >
                         View
                       </Link>
                       <Link
-                        to={`/admin-dashboard/edit/${task._id}`}
+                        to={`/admin-dashboard/manage-users/edit/${task._id}`}
                         className="text-blue-500 hover:text-blue-700 block sm:inline-block"
                       >
                         Update
