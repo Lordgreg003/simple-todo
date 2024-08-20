@@ -41,7 +41,7 @@ const Sidebar: React.FC = () => {
           </li>
           <li>
             <Link
-              to="/user-dashboard/todos"
+              to="/user-dashboard/getall"
               className="block px-4 py-2 text-lg hover:bg-gray-700"
             >
               User Todo

@@ -10,11 +10,17 @@ import {
 } from "../Reducers/admin/AdmintodoReducer";
 import {
   adminGetUsersReducer,
-  adminCreateTodoReducer,
+  adminCreateUserReducer,
   adminDeleteTodoReducer,
-  adminGetTodoByIdReducer,
+  adminGetUserByIdReducer,
   adminUpdateUserReducer,
 } from "../Reducers/admin/AdminuserReducer";
+import {
+  GetAllUserTodoReducer,
+  UpdateUserTodoReducer,
+  DeleteUserTodoReducer,
+  CreateUserTodoReducer,
+} from "../Reducers/users/todo/UserTodoReducer";
 import { GetProfileByIdReducer } from "../Reducers/users/profile/UserProfileReducer";
 import { registerUserReducer, loginReducer } from "../Reducers/AuthReducers";
 import { ReduxResponseType } from "../Types/todoTypes";
@@ -42,6 +48,13 @@ export interface RootState {
   // user profile
   getUserProfile: ReduxResponseType;
   updateUserprofile: ReduxResponseType;
+
+  // user Todo
+  createUserTodo: ReduxResponseType;
+  getAllUserTodo: ReduxResponseType;
+  getUserTodoById: ReduxResponseType;
+  deleteUserTodo: ReduxResponseType;
+  updateUserTodo: ReduxResponseType;
 }
 
 export type ReducersType = {
@@ -64,6 +77,13 @@ export type ReducersType = {
 
   // user profile
   getUserProfile: ReduxResponseType;
+
+  // user Todo
+  createUserTodo: ReduxResponseType;
+  getAllUserTodo: ReduxResponseType;
+  getUserTodoById: ReduxResponseType;
+  deleteUserTodo: ReduxResponseType;
+  updateUserTodo: ReduxResponseType;
 };
 
 // Combine the reducers
@@ -79,14 +99,21 @@ const reducer = combineReducers<ReducersType>({
   adminUpdateTodo: AdminUpdateTodoReducer,
 
   // admin users state
-  adminCreateUser: adminCreateTodoReducer,
+  adminCreateUser: adminCreateUserReducer,
   adminGetAllusers: adminGetUsersReducer,
   adminDeleteuser: adminDeleteTodoReducer,
-  adminGetByIduser: adminGetTodoByIdReducer,
+  adminGetByIduser: adminGetUserByIdReducer,
   adminUpdateuser: adminUpdateUserReducer,
 
   // user profile
   getUserProfile: GetProfileByIdReducer,
+
+  // user Todo
+  createUserTodo: CreateUserTodoReducer,
+  getAllUserTodo: GetAllUserTodoReducer,
+  getUserTodoById: GetAllUserTodoReducer,
+  deleteUserTodo: DeleteUserTodoReducer,
+  updateUserTodo: UpdateUserTodoReducer,
 });
 
 // Define Thunk result type

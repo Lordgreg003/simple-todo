@@ -38,6 +38,7 @@ export const adminGetUsersAction =
       const state = getState();
       const loginUser: ReduxResponseType<LoginResponseType> = state?.loginUser;
       const token = loginUser?.serverResponse?.data?.token;
+      console.log("Get all Token:", token);
 
       const config = {
         headers: {
@@ -112,8 +113,15 @@ export const adminCreateUserAction =
       dispatch({ type: ADMIN_CREATE_USER_REQUEST });
 
       const state = getState();
-      const loginUser: ReduxResponseType<LoginResponseType> = state?.loginuser;
+      console.log("State:", state); // Check the full state
+
+      const loginUser: ReduxResponseType<LoginResponseType> = state?.loginUser;
       const token = loginUser?.serverResponse?.data?.token;
+      console.log("Token:", token); // Check if token is retrieved correctly
+
+      if (!token) {
+        throw new Error("Token is undefined. User might not be logged in.");
+      }
 
       const config = {
         headers: {
@@ -122,17 +130,22 @@ export const adminCreateUserAction =
         },
       };
 
+      console.log("Request Config:", config); // Check the request config
+
       const { data } = await axios.post(
         API_ROUTES?.adminUsers.create,
         { email, username, name, password },
         config
       );
 
+      console.log("Response Data:", data); // Log the response data
+
       dispatch({
         type: ADMIN_CREATE_USER_SUCCESS,
         payload: data,
       });
     } catch (error: any) {
+      console.error("Error:", error.response || error.message); // Log the error
       dispatch({
         type: ADMIN_CREATE_USER_FAIL,
         payload: error?.response?.data?.message || error.message,
@@ -140,7 +153,7 @@ export const adminCreateUserAction =
     }
   };
 
-export const adminGetTodoByIdAction =
+export const adminGetUserByIdAction =
   (id: string): ThunkResult<void> =>
   async (dispatch: Dispatch, getState: any) => {
     try {
@@ -179,7 +192,7 @@ export const adminGetTodoByIdAction =
     }
   };
 
-export const UpdateTodoAction =
+export const adminUpdateUserAction =
   ({
     username,
     email,

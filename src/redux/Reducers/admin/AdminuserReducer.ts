@@ -84,7 +84,7 @@ export const adminDeleteTodoReducer = (
   }
 };
 
-export const adminCreateTodoReducer = (
+export const adminCreateUserReducer = (
   state: ReduxResponseType = initialState,
   action: ActionType
 ) => {
@@ -114,7 +114,7 @@ export const adminCreateTodoReducer = (
   }
 };
 
-export const adminGetTodoByIdReducer = (
+export const adminGetUserByIdReducer = (
   state: ReduxResponseType = initialState,
   action: ActionType
 ) => {
