@@ -10,7 +10,9 @@ export type LoginUserType = {
   password: string;
 };
 export type LoginResponseType = {
-  id: string;
+  fieldToSecure: {
+    id: string; // Add other fields if they exist
+  };
   email: string;
   username?: string;
   type: "admin" | "user";

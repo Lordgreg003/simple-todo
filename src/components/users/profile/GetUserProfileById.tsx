@@ -1,18 +1,18 @@
+// src/screens/user/ProfileScreen.tsx
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetUserProfileByIdAction } from "../../../redux/Actions/users/profile/UserProfileAction";
 import { RootState } from "../../../redux/Store/store";
+import { GetUserProfileByIdAction } from "../../../redux/Actions/users/profile/UserProfileAction";
 import { useParams } from "react-router-dom";
+import { ThunkDispatch } from "redux-thunk";
 
-const UserProfileScreen: React.FC = () => {
-  const dispatch = useDispatch();
+const ProfileScreen: React.FC = () => {
+  const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const { id } = useParams<{ id: string }>();
 
-  const {
-    loading,
-    error,
-    serverResponse: userProfile,
-  } = useSelector((state: RootState) => state.getUserProfile);
+  const { loading, error, serverResponse } = useSelector(
+    (state: RootState) => state.getUserProfile
+  );
 
   useEffect(() => {
     if (id) {
@@ -20,34 +20,51 @@ const UserProfileScreen: React.FC = () => {
     }
   }, [dispatch, id]);
 
+  const { data } = serverResponse || {};
+
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
-      ) : (
-        userProfile && (
-          <div>
-            <h1 className="text-2xl font-bold mb-4">Profile Details</h1>
-            <p>
-              <strong>Name:</strong> {userProfile.data.name}
+    <div className="flex min-h-screen bg-gradient-to-r from-teal-400 to-blue-500 p-6">
+      <div className="container mx-auto max-w-4xl p-4">
+        <h2 className="text-3xl font-bold text-white mb-6 text-center">
+          User Profile
+        </h2>
+        {loading ? (
+          <div className="flex justify-center items-center h-full text-xl text-white">
+            Loading...
+          </div>
+        ) : error ? (
+          <p className="text-red-300 text-center">{error}</p>
+        ) : (
+          <div className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl duration-300">
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Name:</strong>{" "}
+              {data?.name || "N/A"}
             </p>
-            <p>
-              <strong>Username:</strong> {userProfile.data.username}
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Username:</strong>{" "}
+              {data?.username || "N/A"}
             </p>
-            <p>
-              <strong>Email:</strong> {userProfile.data.email}
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Email:</strong>{" "}
+              {data?.email || "N/A"}
             </p>
-            <p>
-              <strong>Created At:</strong>{" "}
-              {new Date(userProfile.data.createdAt).toLocaleDateString()}
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Created At:</strong>{" "}
+              {data?.createdAt
+                ? new Date(data.createdAt).toLocaleString()
+                : "N/A"}
+            </p>
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Updated At:</strong>{" "}
+              {data?.updatedAt
+                ? new Date(data.updatedAt).toLocaleString()
+                : "N/A"}
             </p>
           </div>
-        )
-      )}
+        )}
+      </div>
     </div>
   );
 };
 
-export default UserProfileScreen;
+export default ProfileScreen;
