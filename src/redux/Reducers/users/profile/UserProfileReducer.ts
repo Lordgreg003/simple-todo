@@ -24,7 +24,7 @@ export const GetProfileByIdReducer = (
         ...initialState,
         loading: false,
         success: true,
-        serverResponse: action.payload.data,
+        serverResponse: action.payload,
       };
     case GETBYID_PROFILE_FAIL:
       console.log("Profile Fetching Failed:", action.payload);

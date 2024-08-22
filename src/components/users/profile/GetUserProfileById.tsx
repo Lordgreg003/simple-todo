@@ -1,3 +1,4 @@
+// src/screens/user/ProfileScreen.tsx
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/Store/store";
@@ -13,50 +14,55 @@ const ProfileScreen: React.FC = () => {
     (state: RootState) => state.getUserProfile
   );
 
-  console.log("Profile Screen Params ID:", id);
-  console.log("Profile Screen State:", { loading, error, serverResponse });
-
   useEffect(() => {
     if (id) {
-      console.log("Dispatching GetUserProfileByIdAction...");
-      dispatch(GetUserProfileByIdAction());
+      dispatch(GetUserProfileByIdAction(id));
     }
   }, [dispatch, id]);
 
   const { data } = serverResponse || {};
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">User Profile</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
-      ) : (
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <p>
-            <strong>Name:</strong> {data?.name || "N/A"}
-          </p>
-          <p>
-            <strong>Username:</strong> {data?.username || "N/A"}
-          </p>
-          <p>
-            <strong>Email:</strong> {data?.email || "N/A"}
-          </p>
-          <p>
-            <strong>Created At:</strong>{" "}
-            {data?.createdAt
-              ? new Date(data.createdAt).toLocaleString()
-              : "N/A"}
-          </p>
-          <p>
-            <strong>Updated At:</strong>{" "}
-            {data?.updatedAt
-              ? new Date(data.updatedAt).toLocaleString()
-              : "N/A"}
-          </p>
-        </div>
-      )}
+    <div className="flex min-h-screen bg-gradient-to-r from-teal-400 to-blue-500 p-6">
+      <div className="container mx-auto max-w-4xl p-4">
+        <h2 className="text-3xl font-bold text-white mb-6 text-center">
+          User Profile
+        </h2>
+        {loading ? (
+          <div className="flex justify-center items-center h-full text-xl text-white">
+            Loading...
+          </div>
+        ) : error ? (
+          <p className="text-red-300 text-center">{error}</p>
+        ) : (
+          <div className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl duration-300">
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Name:</strong>{" "}
+              {data?.name || "N/A"}
+            </p>
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Username:</strong>{" "}
+              {data?.username || "N/A"}
+            </p>
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Email:</strong>{" "}
+              {data?.email || "N/A"}
+            </p>
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Created At:</strong>{" "}
+              {data?.createdAt
+                ? new Date(data.createdAt).toLocaleString()
+                : "N/A"}
+            </p>
+            <p className="text-lg font-semibold mb-2">
+              <strong className="text-teal-600">Updated At:</strong>{" "}
+              {data?.updatedAt
+                ? new Date(data.updatedAt).toLocaleString()
+                : "N/A"}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

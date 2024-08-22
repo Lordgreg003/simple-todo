@@ -1,27 +1,58 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useMemo, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutAction } from "../../redux/Actions/authActions";
 import Swal from "sweetalert2";
 import { ThunkDispatch } from "redux-thunk";
-import { RootState } from "../../redux/Store/store";
+import { ReducersType, RootState } from "../../redux/Store/store";
 import { AnyAction } from "redux";
+import { ReduxResponseType } from "../../redux/Types/todoTypes";
+import { UserProfiletype } from "../../redux/Types/user/userTypes";
+import { GetUserProfileByIdAction } from "../../redux/Actions/users/profile/UserProfileAction";
+import { AdminGetTodoType } from "../../redux/Types/admin/adminTypes";
 
 const Sidebar: React.FC = () => {
-  // Properly typed dispatch for handling thunk actions
+  const { id } = useParams<{ id: string }>();
+
   const dispatch: ThunkDispatch<RootState, void, AnyAction> = useDispatch();
   const navigate = useNavigate();
 
-  const {
-    serverResponse: userProfile,
-    loading,
-    error,
-  } = useSelector((state: RootState) => state.getUserProfile);
+  const getProfileDetailsRedux = useSelector(
+    (state: ReducersType) => state?.getUserProfile
+  ) as ReduxResponseType<AdminGetTodoType>;
 
-  console.log("Sidebar UserProfile:", userProfile);
+  console.log("getProfileDetailsRedux data:", getProfileDetailsRedux);
 
+  // Extract loading and error from the Redux state
+  const mode = getProfileDetailsRedux?.loading;
+  const error = getProfileDetailsRedux?.error;
+
+  // Log the loading and error states
+  // console.log("Loading state:", loading);
+  console.log("Error state:", error);
+
+  const userData = useMemo(() => {
+    console.log(
+      "Memoized user data:",
+      getProfileDetailsRedux?.serverResponse?.data
+    );
+    return getProfileDetailsRedux?.serverResponse?.data;
+  }, [getProfileDetailsRedux]);
+
+  // Log the user data after it has been memoized
+  console.log("User data:", userData);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(GetUserProfileByIdAction(id));
+    }
+  }, [dispatch, id]);
+
+  console.log("get profile action", GetUserProfileByIdAction);
   const handleLogout = () => {
+    console.log("Logout initiated");
+
     Swal.fire({
       title: "Are you sure?",
       text: "You will be logged out!",
@@ -31,6 +62,7 @@ const Sidebar: React.FC = () => {
       cancelButtonText: "No, stay logged in",
     }).then((result) => {
       if (result.isConfirmed) {
+        console.log("User confirmed logout");
         dispatch(logoutAction());
         Swal.fire("Logged out!", "You have been logged out.", "success");
         navigate("/login");
@@ -44,17 +76,17 @@ const Sidebar: React.FC = () => {
 
       <nav className="flex-grow mt-4">
         <ul className="space-y-2">
-          {loading ? (
+          {mode ? (
             <li className="text-center text-lg">Loading...</li>
           ) : error ? (
             <li className="text-center text-lg text-red-500">
               Failed to load profile
             </li>
           ) : (
-            userProfile && (
+            userData && (
               <li>
                 <Link
-                  to={`/user-dashboard/profile/${userProfile.data._id}`}
+                  to={`/profile/${userData.username}`}
                   className="block px-4 py-2 text-lg hover:bg-gray-700"
                   aria-label="User Profile"
                 >

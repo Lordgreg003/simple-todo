@@ -78,6 +78,8 @@ export const loginReducer = (
             error: "",
           };
 
+          console.log("login id :", login.serverResponse.data);
+
           // console.log("Decoded token:", decodedToken);
 
           // Store login session in localStorage

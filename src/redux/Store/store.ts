@@ -136,6 +136,7 @@ const initialState: any = {
 // Create the store with middleware and Redux DevTools
 export const store = createStore(
   reducer,
+
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );

@@ -1,4 +1,3 @@
-// src/screens/auth/LoginScreen.tsx
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../../redux/Actions/authActions";
@@ -8,22 +7,21 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import PulseLoader from "react-spinners/PulseLoader";
 import { ReduxResponseType } from "../../../redux/Types/todoTypes";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 
 const LoginScreen: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Local loading state
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const navigate = useNavigate();
 
-  // Extract state from Redux store
   const { loading, error, success, serverResponse } = useSelector(
     (state: ReducersType) => state?.loginUser
   ) as ReduxResponseType;
 
   useEffect(() => {
     if (success && serverResponse) {
-      // Display success message
       Swal.fire({
         icon: "success",
         title: "Successful",
@@ -31,19 +29,12 @@ const LoginScreen: React.FC = () => {
         text: serverResponse?.message,
       });
 
-      // Handle role-based navigation
       const token = serverResponse?.data?.token;
-      // console.log(token);
 
       if (token) {
         try {
-          // Decode the token to extract user information
           const decodedToken = JSON.parse(atob(token.split(".")[1]));
-          // console.log("Decoded token:", decodedToken);
-
-          // Assuming the role might be nested within 'fieldToSecure'
-          const userRole = decodedToken?.fieldToSecure?.type; // Adjust based on the actual structure of the token
-          // console.log("User role:", userRole);
+          const userRole = decodedToken?.fieldToSecure?.type;
 
           if (userRole) {
             if (userRole === "admin") {
@@ -61,22 +52,23 @@ const LoginScreen: React.FC = () => {
         console.log("Token is undefined or null.");
       }
 
-      // Reset form data
       setUsername("");
       setPassword("");
+      setIsLoading(false); // Reset loading state
     } else if (error) {
-      // Display error message
       Swal.fire({
         icon: "error",
         title: "Oops...",
         timer: 5000,
         text: error,
       });
+      setIsLoading(false); // Reset loading state
     }
   }, [success, navigate, serverResponse, error]);
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading state
     dispatch(loginAction({ username, password }));
   };
 
@@ -103,10 +95,10 @@ const LoginScreen: React.FC = () => {
           />
           <button
             type="submit"
-            disabled={loading}
+            disabled={isLoading}
             className="w-full py-3 bg-purple-600 text-white font-bold rounded-md hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-300 transition duration-300 disabled:opacity-50"
           >
-            {loading ? (
+            {isLoading ? (
               <div className="" style={{ height: "25px" }}>
                 <PulseLoader color="#ffffff" />
               </div>
@@ -115,9 +107,6 @@ const LoginScreen: React.FC = () => {
             )}
           </button>
         </form>
-        {loading && (
-          <p className="text-center text-blue-500 mt-4">Loading...</p>
-        )}
         {error && (
           <p className="text-center text-red-500 mt-4">Error: {error}</p>
         )}
