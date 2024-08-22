@@ -101,7 +101,7 @@ const Sidebar: React.FC = () => {
               className="block px-4 py-2 text-lg hover:bg-gray-700"
               aria-label="User Todo"
             >
-              User Todo
+              User Todos
             </Link>
           </li>
         </ul>
