@@ -1,18 +1,20 @@
-import { Dispatch } from "redux";
+import { AnyAction, Dispatch } from "redux";
 import {
   GETBYID_PROFILE_REQUEST,
   GETBYID_PROFILE_SUCCESS,
   GETBYID_PROFILE_FAIL,
 } from "../../../Constants/users/UserConstants";
-import { ThunkResult } from "../../../Store/store";
+import { RootState } from "../../../Store/store";
 import { ReduxResponseType } from "../../../Types/todoTypes";
-import { LoginResponseType } from "../../../Types/authTypes";
 import axios from "axios";
 import { API_ROUTES } from "../../../Routes/routes";
+import { ThunkAction } from "redux-thunk";
+import { LoginResponseType } from "../../../Types/authTypes";
+
+type ThunkResult<R> = ThunkAction<R, RootState, unknown, AnyAction>;
 
 export const GetUserProfileByIdAction =
-  (id: string): ThunkResult<void> =>
-  async (dispatch: Dispatch, getState: any) => {
+  (): ThunkResult<void> => async (dispatch: Dispatch, getState: any) => {
     try {
       dispatch({
         type: GETBYID_PROFILE_REQUEST,
@@ -30,7 +32,7 @@ export const GetUserProfileByIdAction =
       };
 
       const { data } = await axios.get(
-        `${API_ROUTES.userProfile.getById}${id}`,
+        API_ROUTES.userProfile.getById + loginUser.serverResponse.data.id,
         config
       );
 

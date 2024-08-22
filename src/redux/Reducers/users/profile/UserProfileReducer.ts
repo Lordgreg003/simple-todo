@@ -12,17 +12,22 @@ export const GetProfileByIdReducer = (
   state: ReduxResponseType = initialState,
   action: ActionType
 ) => {
+  console.log("Reducer Action:", action.type);
+
   switch (action.type) {
     case GETBYID_PROFILE_REQUEST:
+      console.log("Profile Fetching Started...");
       return { ...initialState, loading: true };
     case GETBYID_PROFILE_SUCCESS:
+      console.log("Profile Fetching Success:", action.payload);
       return {
         ...initialState,
         loading: false,
         success: true,
-        serverResponse: action.payload,
+        serverResponse: action.payload.data,
       };
     case GETBYID_PROFILE_FAIL:
+      console.log("Profile Fetching Failed:", action.payload);
       return {
         ...initialState,
         loading: false,

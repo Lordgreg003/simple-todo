@@ -1,10 +1,34 @@
 // src/screens/user/UserDashboard.tsx
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./sideBar";
+import { useDispatch, useSelector } from "react-redux";
+import { ReducersType, RootState } from "../../redux/Store/store";
+import { ReduxResponseType } from "../../redux/Types/todoTypes";
+import { UserProfiletype } from "../../redux/Types/user/userTypes";
+import { GetUserProfileByIdAction } from "../../redux/Actions/users/profile/UserProfileAction";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
 
 const UserDashboard: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const dispatch: ThunkDispatch<RootState, void, AnyAction> = useDispatch();
+
+  const getProfileDetailsRedux = useSelector(
+    (state: ReducersType) => state?.getUserProfile
+  ) as ReduxResponseType<UserProfiletype>;
+
+  console.log("get profile redux", getProfileDetailsRedux);
+
+  const userData = useMemo(() => {
+    return getProfileDetailsRedux?.serverResponse?.data;
+  }, [getProfileDetailsRedux]);
+
+  console.log("user data", userData);
+
+  useEffect(() => {
+    dispatch(GetUserProfileByIdAction() as any);
+  }, [dispatch]);
 
   return (
     <div className="flex min-h-screen bg-gray-100">

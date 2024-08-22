@@ -21,7 +21,8 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<RegisterScreen />} />
+        <Route path="/register" element={<RegisterScreen />} />
+        <Route path="/" element={<LoginScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
@@ -50,10 +51,7 @@ const App: React.FC = () => {
         />
 
         {/* user profile */}
-        <Route
-          path="/user-dashboard/profile/:id"
-          element={<UserProfileScreen />}
-        />
+        <Route path="/profile/:id" element={<UserProfileScreen />} />
 
         {/* user Todo */}
         <Route
