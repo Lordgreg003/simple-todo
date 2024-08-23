@@ -14,6 +14,8 @@ const ProfileScreen: React.FC = () => {
     (state: RootState) => state.getUserProfile
   );
 
+  console.log("serverResponse", serverResponse);
+
   useEffect(() => {
     if (id) {
       dispatch(GetUserProfileByIdAction(id));

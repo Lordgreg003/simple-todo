@@ -29,10 +29,10 @@ export type CreateUserTodoType = {
 };
 
 export type adminUpdateTodoType = {
-  name: string;
+  // name: string;
   username: string;
   email: string;
-  password: string;
+  title: string;
   id?: string;
 };
 

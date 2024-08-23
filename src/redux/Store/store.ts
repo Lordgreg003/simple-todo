@@ -20,6 +20,7 @@ import {
   UpdateUserTodoReducer,
   DeleteUserTodoReducer,
   CreateUserTodoReducer,
+  UserGetTodoByIdReducer,
 } from "../Reducers/users/todo/UserTodoReducer";
 import { GetProfileByIdReducer } from "../Reducers/users/profile/UserProfileReducer";
 import { registerUserReducer, loginReducer } from "../Reducers/AuthReducers";
@@ -111,7 +112,7 @@ const reducer = combineReducers<ReducersType>({
   // user Todo
   createUserTodo: CreateUserTodoReducer,
   getAllUserTodo: GetAllUserTodoReducer,
-  getUserTodoById: GetAllUserTodoReducer,
+  getUserTodoById: UserGetTodoByIdReducer,
   deleteUserTodo: DeleteUserTodoReducer,
   updateUserTodo: UpdateUserTodoReducer,
 });

@@ -223,13 +223,7 @@ export const AdminGetTodoByIdAction =
   };
 
 export const AdminUpdateTodoAction =
-  ({
-    name,
-    email,
-    password,
-    username,
-    id,
-  }: adminUpdateTodoType): ThunkResult<void> =>
+  ({ email, title, username, id }: adminUpdateTodoType): ThunkResult<void> =>
   async (dispatch: Dispatch, getState: any) => {
     try {
       dispatch({
@@ -249,7 +243,7 @@ export const AdminUpdateTodoAction =
 
       const { data } = await axios.put(
         `${API_ROUTES.adminTodos.update}${id}`,
-        { name, password, username, email },
+        { title, username, email },
         config
       );
 

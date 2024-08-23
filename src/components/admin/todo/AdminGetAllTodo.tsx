@@ -13,23 +13,24 @@ import {
 
 const GetAllTodos: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const navigate = useNavigate(); // Use useNavigate hook
-  const [tasks, setTasks] = useState<AdminGetTodoType[]>([]);
-  const [message, setMessage] = useState<string>("");
+  const navigate = useNavigate(); // useNavigate hook to navigate programmatically
+  const [tasks, setTasks] = useState<AdminGetTodoType[]>([]); // State to store tasks
+  const [message, setMessage] = useState<string>(""); // State to store messages
 
+  // Extract data from Redux state
   const {
     loading,
     serverResponse = [],
     error,
   } = useSelector((state: RootState) => state.adminGetAllTodo);
 
+  // Fetch all todos on component mount
   useEffect(() => {
     dispatch(AdminGetAllTodosAction());
   }, [dispatch]);
 
+  // Update tasks and message based on server response
   useEffect(() => {
-    // console.log("Server Response Data:", serverResponse);
-
     if (serverResponse && Array.isArray(serverResponse)) {
       setTasks(serverResponse);
       setMessage("");
@@ -37,22 +38,21 @@ const GetAllTodos: React.FC = () => {
       setTasks([]);
       setMessage("Invalid response format");
     }
-
-    // console.log("Tasks State:", tasks);
   }, [serverResponse]);
 
+  // Handle delete task action
   const handleDelete = async (id: string) => {
     try {
       await dispatch(AdminDeleteTodo(id));
       dispatch(AdminGetAllTodosAction());
       toast.success("Task deleted successfully!", { position: "top-center" });
     } catch (error) {
-      // console.error("Error deleting task:", error);
+      // Handle error scenario
+      console.error("Error deleting task:", error);
     }
   };
 
-  // console.log(handleDelete);s
-
+  // Render loading, error, or main content
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -75,6 +75,7 @@ const GetAllTodos: React.FC = () => {
           </button>
         </div>
 
+        {/* Create New Task Button */}
         <div className="flex justify-end mb-4">
           <Link
             to="/create"
@@ -84,12 +85,13 @@ const GetAllTodos: React.FC = () => {
           </Link>
         </div>
 
+        {/* Tasks Table */}
         <div className="overflow-x-auto">
           <table className="min-w-full leading-normal">
             <thead>
               <tr>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  ID
+                  No.
                 </th>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Username
@@ -113,10 +115,10 @@ const GetAllTodos: React.FC = () => {
             </thead>
             <tbody>
               {tasks.length > 0 ? (
-                tasks.map((task) => (
+                tasks.map((task, index) => (
                   <tr key={task._id}>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm break-words">
-                      {task._id}
+                      {index + 1}
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm break-words">
                       {task.username}

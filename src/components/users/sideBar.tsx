@@ -86,7 +86,7 @@ const Sidebar: React.FC = () => {
             userData && (
               <li>
                 <Link
-                  to={`/profile/${userData.username}`}
+                  to={`/profile/${userData._id}`}
                   className="block px-4 py-2 text-lg hover:bg-gray-700"
                   aria-label="User Profile"
                 >
