@@ -3,27 +3,32 @@ import { useParams, Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/Store/store"; // Adjust the path accordingly
 import {
-  AdminGetTodoByIdAction,
-  AdminUpdateTodoAction,
-} from "../../../redux/Actions/admin/AdmintodoActions"; // Adjust the path accordingly
+  adminGetUserByIdAction,
+  adminUpdateUserAction,
+} from "../../../redux/Actions/admin/AdminuserActions";
 import { IoIosArrowBack } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThunkDispatch } from "redux-thunk";
+import {
+  AdminGetTodoByIdAction,
+  AdminUpdateTodoAction,
+} from "../../../redux/Actions/admin/AdmintodoActions";
 
-const AdminUpdatePage: React.FC = () => {
+const AdminUpdateUser: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const location = useLocation();
+
+  // Redux state for fetching user details
   const { loading, error, serverResponse } = useSelector(
     (state: RootState) => state.adminGetByIdTodo
   );
 
-  // Form state
+  // Form state for fields to be updated
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
 
   // Fetch data by ID when component mounts
   useEffect(() => {
@@ -32,26 +37,28 @@ const AdminUpdatePage: React.FC = () => {
     }
   }, [dispatch, id]);
 
-  // Set form fields with existing task data when server response is available
+  // Set form fields with existing user data when server response is available
   useEffect(() => {
     if (serverResponse?.data) {
       setUsername(serverResponse.data.username || "");
       setEmail(serverResponse.data.email || "");
-      setName(serverResponse.data.name || "");
-      setPassword(serverResponse.data.password || "");
+      setTitle(serverResponse.data.title || "");
     }
   }, [serverResponse]);
+
+  console.log("Server Response:", serverResponse);
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (id) {
-      dispatch(AdminUpdateTodoAction({ name, email, password, username, id }));
-      toast.success("Task updated successfully!", { position: "top-center" });
+      // Dispatch action to update user with the required fields
+      dispatch(AdminUpdateTodoAction({ username, email, title, id }));
+      toast.success("User updated successfully!", { position: "top-center" });
     }
   };
 
-  // Conditional rendering
+  // Conditional rendering for loading and error states
   if (loading)
     return <div className="text-center mt-10 text-blue-600">Loading...</div>;
   if (error)
@@ -69,17 +76,8 @@ const AdminUpdatePage: React.FC = () => {
             <span className="text-lg font-semibold">Back</span>
           </Link>
         </div>
-        <h1 className="text-3xl font-bold text-center mb-8">Update Task</h1>
+        <h1 className="text-3xl font-bold text-center mb-8">Update User</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <input
-              className="border-gray-300 border-2 rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-              type="text"
-              placeholder="Enter Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
           <div>
             <input
               className="border-gray-300 border-2 rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
@@ -101,10 +99,10 @@ const AdminUpdatePage: React.FC = () => {
           <div>
             <input
               className="border-gray-300 border-2 rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
-              type="password"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="text"
+              placeholder="Enter Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div>
@@ -112,7 +110,7 @@ const AdminUpdatePage: React.FC = () => {
               className="bg-blue-600 text-white border-2 border-blue-600 hover:bg-blue-700 rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               type="submit"
             >
-              Update Task
+              Update User
             </button>
           </div>
         </form>
@@ -122,4 +120,4 @@ const AdminUpdatePage: React.FC = () => {
   );
 };
 
-export default AdminUpdatePage;
+export default AdminUpdateUser;

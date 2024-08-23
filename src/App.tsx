@@ -14,6 +14,8 @@ import AdminViewUserScreen from "./components/AdminViewUserScreen";
 import AdminUpdateUserScreen from "./screens/admin/AdminUpdateUserScreen";
 import GetAllUserTodoScreen from "./screens/users/GetAllUserTodoScreen";
 import CreateUserTodoScreen from "./screens/users/CreateUserTodoScreen";
+import UserViewTodoScreen from "./screens/users/UserViewTodoScreen";
+import UserUpdateTodoScreen from "./screens/users/UserUpdateTodoScreen";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -62,6 +64,16 @@ const App: React.FC = () => {
         <Route
           path="/user-dashboard/getall/create"
           element={<CreateUserTodoScreen />}
+        />
+
+        <Route
+          path="/user-dashboard/getall/view/:id"
+          element={<UserViewTodoScreen />}
+        />
+
+        <Route
+          path="/user-dashboard/getall/edit/:id"
+          element={<UserUpdateTodoScreen />}
         />
       </Routes>
     </Router>

@@ -19,6 +19,10 @@ import {
   CREATE_USER_TODO_SUCCESS,
   CREATE_USER_TODO_FAIL,
   CREATE_USER_TODO_RESET,
+  GET_USER_TODOBYID_REQUEST,
+  GET_USER_TODOBYID_SUCCESS,
+  GET_USER_TODOBYID_FAIL,
+  GET_USER_TODOBYID_RESET,
 } from "../../../Constants/users/UserConstants";
 import { initialState } from "../../../Initial-State/initialState";
 import { ActionType, ReduxResponseType } from "../../../Types/todoTypes";
@@ -135,6 +139,36 @@ export const DeleteUserTodoReducer = (
         error: action.payload,
       };
     case DELETE_USER_TODO_RESET:
+    case LOGIN_RESET:
+      return { ...initialState };
+
+    default:
+      return state;
+  }
+};
+
+export const UserGetTodoByIdReducer = (
+  state: ReduxResponseType = initialState,
+  action: ActionType
+) => {
+  switch (action.type) {
+    case GET_USER_TODOBYID_REQUEST:
+      return { ...initialState, loading: true };
+    case GET_USER_TODOBYID_SUCCESS:
+      return {
+        ...initialState,
+        loading: false,
+        success: true,
+        serverResponse: action.payload.data,
+      };
+    case GET_USER_TODOBYID_FAIL:
+      return {
+        ...initialState,
+        loading: false,
+        success: false,
+        error: action.payload,
+      };
+    case GET_USER_TODOBYID_RESET:
     case LOGIN_RESET:
       return { ...initialState };
 

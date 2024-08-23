@@ -5,3 +5,11 @@ export type UserProfiletype = {
   createdAt: string; // or Date if preferred
   updatedAt: string; // or Date if preferred
 };
+
+export type userUpdateTodoType = {
+  // name: string;
+  username: string;
+  email: string;
+  title: string;
+  id?: string;
+};

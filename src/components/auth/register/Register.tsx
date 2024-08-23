@@ -4,7 +4,7 @@ import { registerAction } from "../../../redux/Actions/authActions";
 import { RootState } from "../../../redux/Store/store";
 import { ThunkDispatch } from "redux-thunk";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const RegisterComponent = () => {
   const [username, setUsername] = useState("");
@@ -12,7 +12,7 @@ const RegisterComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const { loading, error, success } = useSelector(

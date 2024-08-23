@@ -14,7 +14,7 @@ import {
 
 const GetAllUserTodoscom: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const navigate = useNavigate(); // Use useNavigate hook
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState<AdminGetTodoType[]>([]);
   const [message, setMessage] = useState<string>("");
 
@@ -29,8 +29,6 @@ const GetAllUserTodoscom: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    // console.log("Server Response Data:", serverResponse);
-
     if (serverResponse && Array.isArray(serverResponse)) {
       setTasks(serverResponse);
       setMessage("");
@@ -38,8 +36,6 @@ const GetAllUserTodoscom: React.FC = () => {
       setTasks([]);
       setMessage("Invalid response format");
     }
-
-    // console.log("Tasks State:", tasks);
   }, [serverResponse]);
 
   const handleDelete = async (id: string) => {
@@ -51,8 +47,6 @@ const GetAllUserTodoscom: React.FC = () => {
       // console.error("Error deleting task:", error);
     }
   };
-
-  // console.log(handleDelete);s
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -90,7 +84,7 @@ const GetAllUserTodoscom: React.FC = () => {
             <thead>
               <tr>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  ID
+                  Number
                 </th>
                 <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Username
@@ -114,10 +108,10 @@ const GetAllUserTodoscom: React.FC = () => {
             </thead>
             <tbody>
               {tasks.length > 0 ? (
-                tasks.map((task) => (
+                tasks.map((task, index) => (
                   <tr key={task._id}>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm break-words">
-                      {task._id}
+                      {index + 1} {/* Display the number instead of the ID */}
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm break-words">
                       {task.username}
@@ -136,13 +130,13 @@ const GetAllUserTodoscom: React.FC = () => {
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm space-y-2 sm:space-y-0 sm:space-x-2">
                       <Link
-                        to={`/admin-dashboard/view/${task._id}`}
+                        to={`/user-dashboard/getall/view/${task._id}`}
                         className="text-blue-500 hover:text-blue-700 block sm:inline-block"
                       >
                         View
                       </Link>
                       <Link
-                        to={`/admin-dashboard/edit/${task._id}`}
+                        to={`/user-dashboard/getall/edit/${task._id}`}
                         className="text-blue-500 hover:text-blue-700 block sm:inline-block"
                       >
                         Update
