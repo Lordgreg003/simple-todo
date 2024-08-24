@@ -16,6 +16,7 @@ import GetAllUserTodoScreen from "./screens/users/GetAllUserTodoScreen";
 import CreateUserTodoScreen from "./screens/users/CreateUserTodoScreen";
 import UserViewTodoScreen from "./screens/users/UserViewTodoScreen";
 import UserUpdateTodoScreen from "./screens/users/UserUpdateTodoScreen";
+import UpdateProfileScreen from "./screens/users/UpdateProfileScreen";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -54,6 +55,7 @@ const App: React.FC = () => {
 
         {/* user profile */}
         <Route path="/profile/:id" element={<UserProfileScreen />} />
+        <Route path="/update-profile/:id" element={<UpdateProfileScreen />} />
 
         {/* user Todo */}
         <Route

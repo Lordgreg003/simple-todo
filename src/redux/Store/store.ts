@@ -22,7 +22,10 @@ import {
   CreateUserTodoReducer,
   UserGetTodoByIdReducer,
 } from "../Reducers/users/todo/UserTodoReducer";
-import { GetProfileByIdReducer } from "../Reducers/users/profile/UserProfileReducer";
+import {
+  GetProfileByIdReducer,
+  UpdateProfileReducer,
+} from "../Reducers/users/profile/UserProfileReducer";
 import { registerUserReducer, loginReducer } from "../Reducers/AuthReducers";
 import { ReduxResponseType } from "../Types/todoTypes";
 import { LOGIN_SESSION } from "../../extrastorage/storageStore";
@@ -78,6 +81,7 @@ export type ReducersType = {
 
   // user profile
   getUserProfile: ReduxResponseType;
+  updateUserProfile: ReduxResponseType;
 
   // user Todo
   createUserTodo: ReduxResponseType;
@@ -108,6 +112,7 @@ const reducer = combineReducers<ReducersType>({
 
   // user profile
   getUserProfile: GetProfileByIdReducer,
+  updateUserProfile: UpdateProfileReducer,
 
   // user Todo
   createUserTodo: CreateUserTodoReducer,

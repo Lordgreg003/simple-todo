@@ -8,7 +8,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { ReducersType, RootState } from "../../redux/Store/store";
 import { AnyAction } from "redux";
 import { ReduxResponseType } from "../../redux/Types/todoTypes";
-import { UserProfiletype } from "../../redux/Types/user/userTypes";
+// import { UserProfiletype } from "../../redux/Types/user/userTypes";
 import { GetUserProfileByIdAction } from "../../redux/Actions/users/profile/UserProfileAction";
 import { AdminGetTodoType } from "../../redux/Types/admin/adminTypes";
 
@@ -91,6 +91,13 @@ const Sidebar: React.FC = () => {
                   aria-label="User Profile"
                 >
                   User Profile
+                </Link>
+                <Link
+                  to={`/update-profile/${userData._id}`}
+                  className="block px-4 py-2 text-lg hover:bg-gray-700"
+                  aria-label="User Profile"
+                >
+                  Update Profile
                 </Link>
               </li>
             )
