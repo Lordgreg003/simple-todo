@@ -8,11 +8,13 @@ import Swal from "sweetalert2";
 import PulseLoader from "react-spinners/PulseLoader";
 import { ReduxResponseType } from "../../../redux/Types/todoTypes";
 import { Link } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; // Importing eye icons
 
 const LoginScreen: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Local loading state
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const navigate = useNavigate();
 
@@ -72,6 +74,10 @@ const LoginScreen: React.FC = () => {
     dispatch(loginAction({ username, password }));
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
@@ -86,13 +92,21 @@ const LoginScreen: React.FC = () => {
             placeholder="Username"
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
           />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
+            />
+            <span
+              onClick={togglePasswordVisibility}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 cursor-pointer"
+            >
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </span>
+          </div>
           <button
             type="submit"
             disabled={isLoading}

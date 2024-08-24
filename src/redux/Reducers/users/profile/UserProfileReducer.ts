@@ -4,6 +4,10 @@ import {
   GETBYID_PROFILE_SUCCESS,
   GETBYID_PROFILE_FAIL,
   GETBYID_PROFILE_RESET,
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCESS,
+  UPDATE_PROFILE_FAIL,
+  UPDATE_PROFILE_RESET,
 } from "../../../Constants/users/UserConstants";
 import { initialState } from "../../../Initial-State/initialState";
 import { ActionType, ReduxResponseType } from "../../../Types/todoTypes";
@@ -35,6 +39,36 @@ export const GetProfileByIdReducer = (
         error: action.payload,
       };
     case GETBYID_PROFILE_RESET:
+    case LOGIN_RESET:
+      return { ...initialState };
+
+    default:
+      return state;
+  }
+};
+
+export const UpdateProfileReducer = (
+  state: ReduxResponseType = initialState,
+  action: ActionType
+) => {
+  switch (action.type) {
+    case UPDATE_PROFILE_REQUEST:
+      return { ...initialState, loading: true };
+    case UPDATE_PROFILE_SUCESS:
+      return {
+        ...initialState,
+        loading: false,
+        success: true,
+        serverResponse: action.payload,
+      };
+    case UPDATE_PROFILE_FAIL:
+      return {
+        ...initialState,
+        loading: false,
+        success: false,
+        error: action.payload,
+      };
+    case UPDATE_PROFILE_RESET:
     case LOGIN_RESET:
       return { ...initialState };
 
