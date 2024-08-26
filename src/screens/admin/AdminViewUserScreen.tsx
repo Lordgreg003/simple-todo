@@ -1,4 +1,4 @@
-import AdminViewUser from "./admin/users/AdminViewUser";
+import AdminViewUser from "../../components/admin/users/AdminViewUser";
 
 const AdminViewUserScreen = () => {
   return (

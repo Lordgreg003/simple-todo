@@ -18,7 +18,7 @@ const LoginScreen: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error, success, serverResponse } = useSelector(
+  const { error, success, serverResponse } = useSelector(
     (state: ReducersType) => state?.loginUser
   ) as ReduxResponseType;
 
@@ -82,7 +82,7 @@ const LoginScreen: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Login
+          Login To Your Greg Account
         </h2>
         <form onSubmit={submitHandler} className="space-y-4">
           <input

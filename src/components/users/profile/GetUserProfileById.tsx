@@ -16,6 +16,16 @@ const ProfileScreen: React.FC = () => {
 
   console.log("serverResponse", serverResponse);
 
+  // useEffect(() => {
+  //   if (id) {
+  //     dispatch(GetUserProfileByIdAction(id));
+  //   }
+  // }, [dispatch, id]);
+
+  // useEffect(() => {
+  //   dispatch(GetUserProfileByIdAction());
+  // }, [dispatch]);
+
   useEffect(() => {
     if (id) {
       dispatch(GetUserProfileByIdAction(id));

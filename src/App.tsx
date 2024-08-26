@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import AdminViewUserScreen from "./components/AdminViewUserScreen";
+import AdminViewUserScreen from "./screens/admin/AdminViewUserScreen";
 import AdminCreateUsersScreen from "./screens/admin/AdminCreateUsersScreen";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import AdminTodos from "./screens/admin/AdminTodos";
@@ -25,7 +25,12 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/register" element={<RegisterScreen />} />
-        <Route path="/" element={<LoginScreen />} />
+        <Route
+          path="/"
+          element={<LoginScreen />}
+          loader={() => null}
+          action={() => null}
+        />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
