@@ -1,12 +1,11 @@
-import React, { useMemo, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logoutAction } from "../../redux/Actions/authActions";
-import Swal from "sweetalert2";
-import { ThunkDispatch } from "redux-thunk";
-import { ReducersType, RootState } from "../../redux/Store/store";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AnyAction } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import Swal from "sweetalert2";
+import { logoutAction } from "../../redux/Actions/authActions";
+import { ReducersType, RootState } from "../../redux/Store/store";
 import { ReduxResponseType } from "../../redux/Types/todoTypes";
 // import { UserProfiletype } from "../../redux/Types/user/userTypes";
 import { GetUserProfileByIdAction } from "../../redux/Actions/users/profile/UserProfileAction";
@@ -22,7 +21,7 @@ const Sidebar: React.FC = () => {
     (state: ReducersType) => state?.getUserProfile
   ) as ReduxResponseType<AdminGetTodoType>;
 
-  console.log("getProfileDetailsRedux data:", getProfileDetailsRedux);
+  // console.log("getProfileDetailsRedux data:", getProfileDetailsRedux);
 
   // Extract loading and error from the Redux state
   const mode = getProfileDetailsRedux?.loading;
@@ -30,7 +29,7 @@ const Sidebar: React.FC = () => {
 
   // Log the loading and error states
   // console.log("Loading state:", loading);
-  console.log("Error state:", error);
+  // console.log("Error state:", error);
 
   const userData = useMemo(() => {
     console.log(
@@ -40,8 +39,8 @@ const Sidebar: React.FC = () => {
     return getProfileDetailsRedux?.serverResponse?.data;
   }, [getProfileDetailsRedux]);
 
-  // Log the user data after it has been memoized
-  console.log("User data:", userData);
+  // // Log the user data after it has been memoized
+  // console.log("User data:", userData);
 
   useEffect(() => {
     if (id) {
