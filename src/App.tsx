@@ -1,22 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import RegisterScreen from "./screens/auth/RegisterScreen";
-import LoginScreen from "./screens/auth/LoginScreen";
-import AdminDashboard from "./screens/admin/AdminDashboard";
-import UserDashboard from "./screens/users/UserDashboard";
-import AdminTodos from "./screens/admin/AdminTodos";
-import AdminViewTodos from "./screens/admin/AdminViewTodos";
-import AdminUpdateTodo from "./screens/admin/AdminUpdateTodo";
-import AdminUsers from "./screens/admin/AdminUsers";
-import UserProfileScreen from "./screens/users/UserProfileScreen";
-import AdminCreateUsersScreen from "./screens/admin/AdminCreateUsersScreen";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import AdminViewUserScreen from "./components/AdminViewUserScreen";
+import AdminCreateUsersScreen from "./screens/admin/AdminCreateUsersScreen";
+import AdminDashboard from "./screens/admin/AdminDashboard";
+import AdminTodos from "./screens/admin/AdminTodos";
+import AdminUpdateTodo from "./screens/admin/AdminUpdateTodo";
 import AdminUpdateUserScreen from "./screens/admin/AdminUpdateUserScreen";
-import GetAllUserTodoScreen from "./screens/users/GetAllUserTodoScreen";
+import AdminUsers from "./screens/admin/AdminUsers";
+import AdminViewTodos from "./screens/admin/AdminViewTodos";
+import LoginScreen from "./screens/auth/LoginScreen";
+import RegisterScreen from "./screens/auth/RegisterScreen";
 import CreateUserTodoScreen from "./screens/users/CreateUserTodoScreen";
-import UserViewTodoScreen from "./screens/users/UserViewTodoScreen";
-import UserUpdateTodoScreen from "./screens/users/UserUpdateTodoScreen";
+import GetAllUserTodoScreen from "./screens/users/GetAllUserTodoScreen";
 import UpdateProfileScreen from "./screens/users/UpdateProfileScreen";
+import UserDashboard from "./screens/users/UserDashboard";
+import UserProfileScreen from "./screens/users/UserProfileScreen";
+import UserUpdateTodoScreen from "./screens/users/UserUpdateTodoScreen";
+import UserViewTodoScreen from "./screens/users/UserViewTodoScreen";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -59,7 +59,7 @@ const App: React.FC = () => {
         />
 
         {/* user profile */}
-        <Route path="/profile/:id" element={<UserProfileScreen />} />
+        <Route path="/profile" element={<UserProfileScreen />} />
         <Route path="/update-profile/:id" element={<UpdateProfileScreen />} />
 
         {/* user Todo */}
