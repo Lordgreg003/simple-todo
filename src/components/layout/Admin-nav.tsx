@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // src/components/AdminNav.tsx
 import React from "react";
 import { Link } from "react-router-dom";
@@ -38,6 +37,5 @@ const AdminNav: React.FC = () => {
 };
 
 export default AdminNav;
-=======
-export {};
->>>>>>> fef19db6bebafaac1d200cb8bbfa7d4d923d37a1
+
+// export {};
