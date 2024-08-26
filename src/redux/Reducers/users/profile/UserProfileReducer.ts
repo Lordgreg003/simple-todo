@@ -1,3 +1,4 @@
+import { ServerResponse } from "http";
 import { LOGIN_RESET } from "../../../Constants/authConstants";
 import {
   GETBYID_PROFILE_REQUEST,
@@ -28,8 +29,9 @@ export const GetProfileByIdReducer = (
         ...initialState,
         loading: false,
         success: true,
-        serverResponse: action.payload,
+        serverResponse: action.payload.data,
       };
+
     case GETBYID_PROFILE_FAIL:
       console.log("Profile Fetching Failed:", action.payload);
       return {

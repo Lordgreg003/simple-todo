@@ -26,6 +26,9 @@ const UpdateprofileScreen: React.FC = () => {
     email: "",
     name: "",
   });
+  // useEffect(() => {
+  //   dispatch(GetUserProfileByIdAction());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (id) {

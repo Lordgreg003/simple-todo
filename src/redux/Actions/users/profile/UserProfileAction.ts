@@ -16,6 +16,7 @@ import { LoginResponseType } from "../../../Types/authTypes";
 import { UpdateProfiletype } from "../../../Types/user/userTypes";
 
 type ThunkResult<R> = ThunkAction<R, RootState, unknown, AnyAction>;
+
 export const GetUserProfileByIdAction =
   (id: string): ThunkResult<void> =>
   async (dispatch: Dispatch, getState: any) => {
@@ -62,7 +63,7 @@ export const GetUserProfileByIdAction =
       console.log("Request config:", config);
 
       const { data } = await axios.get(
-        `${API_ROUTES.userProfile.getById}${userId}`,
+        `${API_ROUTES.userProfile.getById}${id}`,
         config
       );
 

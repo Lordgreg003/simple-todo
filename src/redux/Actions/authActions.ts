@@ -10,10 +10,16 @@ import {
 import { API_ROUTES } from "../Routes/routes";
 import axios from "axios";
 // import { ActionType } from "../Types/todoTypes";
-import { LoginUserType, RegisterUserType } from "../Types/authTypes";
+import {
+  LoginResponseType,
+  LoginUserType,
+  RegisterUserType,
+} from "../Types/authTypes";
 // import { ThunkAction } from "redux-thunk";
 // import { RootState } from "../Store/store";
 import { Dispatch } from "redux";
+import { ReduxResponseType } from "../Types/todoTypes";
+import { RootState } from "../Store/store";
 
 // Register Action
 export const registerAction =
@@ -96,6 +102,24 @@ export const loginAction =
     }
   };
 
-export const logoutAction = () => async (dispatch: Dispatch) => {
-  dispatch({ type: LOGIN_RESET });
-};
+export const logoutAction =
+  () => async (dispatch: Dispatch, getState: () => RootState) => {
+    // Extract the token from the Redux state
+    const state = getState();
+    const loginUser = state.loginuser; // Adjust if necessary
+    const token = loginUser?.serverResponse?.data?.token;
+
+    console.log("Logging out, token:", token);
+
+    // Clear the token from local storage
+    localStorage.removeItem("token"); // Ensure this matches where you store the token
+    // If you're using cookies, clear them as well
+
+    // Verify that the token has been removed
+    console.log("Token after removal:", localStorage.getItem("token"));
+
+    // Dispatch an action to reset authentication state
+    dispatch({ type: LOGIN_RESET });
+
+    // Optionally, you might want to redirect or perform additional cleanup here
+  };

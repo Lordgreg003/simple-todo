@@ -25,7 +25,12 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/register" element={<RegisterScreen />} />
-        <Route path="/" element={<LoginScreen />} />
+        <Route
+          path="/"
+          element={<LoginScreen />}
+          loader={() => null}
+          action={() => null}
+        />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />

@@ -1,39 +1,43 @@
+// UserDashboard.tsx
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { ThunkDispatch } from "redux-thunk";
 import { RootState } from "../../redux/Store/store";
 import { GetUserProfileByIdAction } from "../../redux/Actions/users/profile/UserProfileAction";
-import Sidebar from "./sideBar";
-import { AnyAction } from "redux";
+import Sidebar from "./usersidebar/sideBar";
+import Nav from "../layout/Nav";
+import Dashboardfooter from "../layout/Dashboard-footer";
+import { ThunkDispatch } from "redux-thunk";
 
 const UserDashboard: React.FC = () => {
-  const dispatch: ThunkDispatch<RootState, void, AnyAction> = useDispatch();
+  const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const { id } = useParams<{ id: string }>();
 
-  // Selectors to get the state from the Redux store
   const { loading, error, serverResponse } = useSelector(
     (state: RootState) => state.getUserProfile
   );
 
-  console.log("serverResponse", serverResponse);
+  console.log(serverResponse);
 
   useEffect(() => {
     if (id) {
-      console.log("Fetching user profile data with ID:", id);
       dispatch(GetUserProfileByIdAction(id));
     }
   }, [dispatch, id]);
 
+  // useEffect(() => {
+  //   dispatch(GetUserProfileByIdAction());
+  // }, [dispatch]);
+
   const { data } = serverResponse || {};
 
+  // console.log(serverResponse.success);
+
   return (
-    <div className="flex min-h-screen bg-gradient-to-r from-teal-400 to-blue-500 p-6">
+    <div className="flex h-[47.8rem] bg-gradient-to-r from-teal-400 to-blue-500 p-6 overflow-y-hidden">
       <Sidebar />
-      <div className="flex-grow bg-gray-200 p-8">
-        <header className="bg-purple-600 p-4 text-white text-center text-xl rounded-md shadow-md">
-          User Dashboard
-        </header>
+      <div className="flex-grow h-auto bg-gray-200 p-8">
+        <Nav />
         <main className="mt-8 bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold mb-6 text-center">User Profile</h2>
 
@@ -72,9 +76,7 @@ const UserDashboard: React.FC = () => {
             </div>
           )}
         </main>
-        <footer className="bg-gray-800 p-4 text-white text-center mt-8">
-          © 2024 YourAppName
-        </footer>
+        <Dashboardfooter />
       </div>
     </div>
   );
