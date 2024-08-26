@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import AdminViewUserScreen from "./components/AdminViewUserScreen";
+import AdminViewUserScreen from "./screens/admin/AdminViewUserScreen";
 import AdminCreateUsersScreen from "./screens/admin/AdminCreateUsersScreen";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import AdminTodos from "./screens/admin/AdminTodos";
