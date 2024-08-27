@@ -1,4 +1,3 @@
-import { ServerResponse } from "http";
 import { LOGIN_RESET } from "../../../Constants/authConstants";
 import {
   GETBYID_PROFILE_REQUEST,
@@ -17,23 +16,19 @@ export const GetProfileByIdReducer = (
   state: ReduxResponseType = initialState,
   action: ActionType
 ) => {
-  console.log("Reducer Action:", action.type);
-
   switch (action.type) {
     case GETBYID_PROFILE_REQUEST:
-      console.log("Profile Fetching Started...");
       return { ...initialState, loading: true };
     case GETBYID_PROFILE_SUCCESS:
-      console.log("Profile Fetching Success:", action.payload);
+      console.log("GetProfileByIdReducer action.payload", action.payload);
       return {
         ...initialState,
         loading: false,
         success: true,
-        serverResponse: action.payload.data,
+        serverResponse: action.payload,
       };
 
     case GETBYID_PROFILE_FAIL:
-      console.log("Profile Fetching Failed:", action.payload);
       return {
         ...initialState,
         loading: false,

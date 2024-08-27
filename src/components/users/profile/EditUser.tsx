@@ -6,13 +6,12 @@ import {
   GetUserProfileByIdAction,
   UpdateProfileAction,
 } from "../../../redux/Actions/users/profile/UserProfileAction";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ThunkDispatch } from "redux-thunk";
 
 const UpdateprofileScreen: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
 
   const { loading, error, serverResponse } = useSelector(
     (state: RootState) => state.getUserProfile
@@ -31,10 +30,8 @@ const UpdateprofileScreen: React.FC = () => {
   // }, [dispatch]);
 
   useEffect(() => {
-    if (id) {
-      dispatch(GetUserProfileByIdAction(id));
-    }
-  }, [dispatch, id]);
+    dispatch(GetUserProfileByIdAction());
+  }, [dispatch]);
 
   useEffect(() => {
     if (serverResponse?.data) {
@@ -49,9 +46,9 @@ const UpdateprofileScreen: React.FC = () => {
   useEffect(() => {
     if (updateSuccess) {
       // Redirect or provide feedback after successful update
-      navigate(`/profile/${id}`);
+      navigate(`/profile`);
     }
-  }, [updateSuccess, navigate, id]);
+  }, [updateSuccess, navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,7 +59,6 @@ const UpdateprofileScreen: React.FC = () => {
     e.preventDefault();
     dispatch(
       UpdateProfileAction({
-        id,
         username: formData.username,
         email: formData.email,
         name: formData.name,
