@@ -1,76 +1,55 @@
-// src/screens/user/UpdateProfileScreen.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/Store/store";
 import {
   GetUserProfileByIdAction,
   UpdateProfileAction,
 } from "../../../redux/Actions/users/profile/UserProfileAction";
-import { useNavigate } from "react-router-dom";
 import { ThunkDispatch } from "redux-thunk";
 
-const UpdateprofileScreen: React.FC = () => {
+const ProfileScreen: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [loadingUpdate, setLoadingUpdate] = useState(false); // New state for button loading
 
   const { loading, error, serverResponse } = useSelector(
     (state: RootState) => state.getUserProfile
   );
-  const { success: updateSuccess, loading: updateLoading } = useSelector(
-    (state: RootState) => state.updateUserprofile
+
+  const { success: updateSuccess, error: updateError } = useSelector(
+    (state: RootState) => state.updateUserTodo
   );
 
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    name: "",
-  });
-  // useEffect(() => {
-  //   dispatch(GetUserProfileByIdAction());
-  // }, [dispatch]);
+  const data = useMemo(() => {
+    return serverResponse?.data;
+  }, [serverResponse]);
 
   useEffect(() => {
     dispatch(GetUserProfileByIdAction());
   }, [dispatch]);
 
   useEffect(() => {
-    if (serverResponse?.data) {
-      setFormData({
-        username: serverResponse.data.username || "",
-        email: serverResponse.data.email || "",
-        name: serverResponse.data.name || "",
-      });
+    if (data) {
+      setName(data.name || "");
+      setUsername(data.username || "");
+      setEmail(data.email || "");
     }
-  }, [serverResponse]);
+  }, [data]);
 
-  useEffect(() => {
-    if (updateSuccess) {
-      // Redirect or provide feedback after successful update
-      navigate(`/profile`);
-    }
-  }, [updateSuccess, navigate]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(
-      UpdateProfileAction({
-        username: formData.username,
-        email: formData.email,
-        name: formData.name,
-      })
-    );
+    setLoadingUpdate(true); // Set loading to true when submitting
+    await dispatch(UpdateProfileAction({ name, username, email }));
+    setLoadingUpdate(false); // Set loading to false after dispatch is complete
   };
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-teal-400 to-blue-500 p-6">
       <div className="container mx-auto max-w-4xl p-4">
         <h2 className="text-3xl font-bold text-white mb-6 text-center">
-          Update Profile
+          User Profile
         </h2>
         {loading ? (
           <div className="flex justify-center items-center h-full text-xl text-white">
@@ -80,54 +59,80 @@ const UpdateprofileScreen: React.FC = () => {
           <p className="text-red-300 text-center">{error}</p>
         ) : (
           <form
-            className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl duration-300"
             onSubmit={handleSubmit}
+            className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl duration-300"
           >
+            {updateSuccess && (
+              <p className="text-green-500 text-center mb-4">
+                Profile updated successfully!
+              </p>
+            )}
+            {updateError && (
+              <p className="text-red-500 text-center mb-4">{updateError}</p>
+            )}
             <div className="mb-4">
-              <label className="block text-teal-600 text-sm font-bold mb-2">
+              <label className="block text-lg font-semibold mb-2">
                 Name:
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
               </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
             </div>
             <div className="mb-4">
-              <label className="block text-teal-600 text-sm font-bold mb-2">
+              <label className="block text-lg font-semibold mb-2">
                 Username:
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
               </label>
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleInputChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
             </div>
             <div className="mb-4">
-              <label className="block text-teal-600 text-sm font-bold mb-2">
+              <label className="block text-lg font-semibold mb-2">
                 Email:
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
               </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
             </div>
-            <div className="flex items-center justify-between">
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                disabled={updateLoading}
-              >
-                {updateLoading ? "Updating..." : "Update Profile"}
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="w-full bg-teal-600 text-white p-2 rounded hover:bg-teal-700 flex items-center justify-center"
+              disabled={loadingUpdate} // Disable button while loading
+            >
+              {loadingUpdate ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-white mr-3"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v2a6 6 0 00-6 6h2zm0 0a8 8 0 008 8v-2a6 6 0 01-6-6h2z"
+                  />
+                </svg>
+              ) : (
+                "Update Profile"
+              )}
+            </button>
           </form>
         )}
       </div>
@@ -135,4 +140,4 @@ const UpdateprofileScreen: React.FC = () => {
   );
 };
 
-export default UpdateprofileScreen;
+export default ProfileScreen;

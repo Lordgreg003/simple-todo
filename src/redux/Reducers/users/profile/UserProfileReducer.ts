@@ -52,6 +52,7 @@ export const UpdateProfileReducer = (
     case UPDATE_PROFILE_REQUEST:
       return { ...initialState, loading: true };
     case UPDATE_PROFILE_SUCESS:
+      console.log("UpdateProfileReducer action.payload", action.payload);
       return {
         ...initialState,
         loading: false,

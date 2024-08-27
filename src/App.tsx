@@ -60,7 +60,7 @@ const App: React.FC = () => {
 
         {/* user profile */}
         <Route path="/profile" element={<UserProfileScreen />} />
-        <Route path="/update-profile/:id" element={<UpdateProfileScreen />} />
+        <Route path="/update-profile" element={<UpdateProfileScreen />} />
 
         {/* user Todo */}
         <Route
