@@ -18,11 +18,8 @@ import { UpdateProfiletype } from "../../../Types/user/userTypes";
 type ThunkResult<R> = ThunkAction<R, RootState, unknown, AnyAction>;
 
 export const GetUserProfileByIdAction =
-  (id: string): ThunkResult<void> =>
-  async (dispatch: Dispatch, getState: any) => {
+  (): ThunkResult<void> => async (dispatch: Dispatch, getState: any) => {
     try {
-      console.log("GetUserProfileByIdAction initiated");
-
       // Dispatch request action
       dispatch({
         type: GETBYID_PROFILE_REQUEST,
@@ -30,22 +27,11 @@ export const GetUserProfileByIdAction =
 
       // Log the current state
       const state = getState();
-      console.log("Current state:", state);
 
       // Extract token from the state
       const loginUser: ReduxResponseType<LoginResponseType> = state?.loginUser;
       const token = loginUser?.serverResponse?.data?.token;
       const userId = loginUser?.serverResponse?.data?.fieldToSecure.id;
-
-      // Log the extracted token and userId
-      console.log("Extracted token:", token);
-      console.log("Extracted UserId:", userId);
-
-      // Additional check to ensure userId is not undefined
-      if (!userId) {
-        console.error("UserId is undefined! Please check the login state.");
-        return;
-      }
 
       const config = {
         headers: {
@@ -54,21 +40,10 @@ export const GetUserProfileByIdAction =
         },
       };
 
-      // Log the API request URL and config
-      console.log(
-        "API request URL:",
+      const { data } = await axios.get(
         `${API_ROUTES.userProfile.getById}${userId}`,
         config
       );
-      console.log("Request config:", config);
-
-      const { data } = await axios.get(
-        `${API_ROUTES.userProfile.getById}${id}`,
-        config
-      );
-
-      // Log the API response data
-      console.log("API response data:", data);
 
       // Dispatch success action
       dispatch({
@@ -77,7 +52,6 @@ export const GetUserProfileByIdAction =
       });
     } catch (error: any) {
       // Log the error response
-      console.error("Error response:", error);
 
       dispatch({
         type: GETBYID_PROFILE_FAIL,

@@ -1,38 +1,24 @@
 // src/screens/user/ProfileScreen.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/Store/store";
 import { GetUserProfileByIdAction } from "../../../redux/Actions/users/profile/UserProfileAction";
-import { useParams } from "react-router-dom";
 import { ThunkDispatch } from "redux-thunk";
 
 const ProfileScreen: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const { id } = useParams<{ id: string }>();
 
   const { loading, error, serverResponse } = useSelector(
     (state: RootState) => state.getUserProfile
   );
 
-  console.log("serverResponse", serverResponse);
-
-  // useEffect(() => {
-  //   if (id) {
-  //     dispatch(GetUserProfileByIdAction(id));
-  //   }
-  // }, [dispatch, id]);
-
-  // useEffect(() => {
-  //   dispatch(GetUserProfileByIdAction());
-  // }, [dispatch]);
+  const data = useMemo(() => {
+    return serverResponse?.data;
+  }, [serverResponse]);
 
   useEffect(() => {
-    if (id) {
-      dispatch(GetUserProfileByIdAction(id));
-    }
-  }, [dispatch, id]);
-
-  const { data } = serverResponse || {};
+    dispatch(GetUserProfileByIdAction());
+  }, [dispatch]);
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-teal-400 to-blue-500 p-6">

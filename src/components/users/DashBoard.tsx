@@ -1,44 +1,34 @@
 // UserDashboard.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { RootState } from "../../redux/Store/store";
 import { GetUserProfileByIdAction } from "../../redux/Actions/users/profile/UserProfileAction";
-import Sidebar from "./usersidebar/sideBar";
 import Nav from "../layout/Nav";
 import Dashboardfooter from "../layout/Dashboard-footer";
 import { ThunkDispatch } from "redux-thunk";
+import Sidebar from "../layout/Sidebar";
 
 const UserDashboard: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
-  const { id } = useParams<{ id: string }>();
 
   const { loading, error, serverResponse } = useSelector(
     (state: RootState) => state.getUserProfile
   );
 
-  console.log(serverResponse);
+  const data = useMemo(() => {
+    return serverResponse?.data;
+  }, [serverResponse]);
 
   useEffect(() => {
-    if (id) {
-      dispatch(GetUserProfileByIdAction(id));
-    }
-  }, [dispatch, id]);
-
-  // useEffect(() => {
-  //   dispatch(GetUserProfileByIdAction());
-  // }, [dispatch]);
-
-  const { data } = serverResponse || {};
-
-  // console.log(serverResponse.success);
+    dispatch(GetUserProfileByIdAction());
+  }, [dispatch]);
 
   return (
     <div className="flex h-[47.8rem] bg-gradient-to-r from-teal-400 to-blue-500 p-6 overflow-y-hidden">
       <Sidebar />
       <div className="flex-grow h-auto bg-gray-200 p-8">
         <Nav />
-        <main className="mt-8 bg-white p-6 rounded-lg shadow-md">
+        <main className="mt-8 bg-white p-6 rounded-lg">
           <h2 className="text-3xl font-bold mb-6 text-center">User Profile</h2>
 
           {loading ? (
