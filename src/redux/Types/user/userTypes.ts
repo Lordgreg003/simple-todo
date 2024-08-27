@@ -10,9 +10,10 @@ export type UpdateProfiletype = {
   name?: string;
   username: string;
   email: string;
+  password?: string;
   // createdAt: string; // or Date if preferred
   // updatedAt: string; // or Date if preferred
-  id?: string;
+  // id?: string;
 };
 
 export type userUpdateTodoType = {

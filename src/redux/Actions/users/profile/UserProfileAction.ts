@@ -64,7 +64,7 @@ export const GetUserProfileByIdAction =
   };
 
 export const UpdateProfileAction =
-  ({ username, email, name, id }: UpdateProfiletype): ThunkResult<void> =>
+  ({ username, email, name, password }: UpdateProfiletype): ThunkResult<void> =>
   async (dispatch: Dispatch, getState: any) => {
     try {
       dispatch({
@@ -74,6 +74,7 @@ export const UpdateProfileAction =
       const state = getState();
       const loginUser: ReduxResponseType<LoginResponseType> = state?.loginUser;
       const token = loginUser?.serverResponse?.data?.token;
+      const userId = loginUser?.serverResponse?.data?.fieldToSecure.id;
 
       const config = {
         headers: {
@@ -83,8 +84,8 @@ export const UpdateProfileAction =
       };
 
       const { data } = await axios.put(
-        `${API_ROUTES.userProfile.update}${id}`,
-        { name, username, email },
+        `${API_ROUTES.userProfile.update}${userId}`,
+        { name, username, email, password },
         config
       );
 
