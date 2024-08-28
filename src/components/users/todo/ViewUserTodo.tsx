@@ -20,53 +20,51 @@ const UserViewTodo: React.FC = () => {
     }
   }, [dispatch, id]);
 
-  if (loading) return <div className="text-center py-10">Loading...</div>;
+  if (loading)
+    return <div className="text-center py-10 text-gray-300">Loading...</div>;
   if (error)
     return (
-      <div className="text-center py-10 text-red-500">
+      <div className="text-center py-10 text-red-400">
         Error: {error.message || error}
       </div>
     );
   if (!serverResponse || !serverResponse.data)
-    return <div className="text-center py-10">No data found</div>;
+    return <div className="text-center py-10 text-gray-300">No data found</div>;
 
-  const task = serverResponse.data;
-  console.log("serverResponse", serverResponse);
-
-  console.log("task", task);
+  const task = serverResponse?.data;
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-4">
+    <div className="min-h-screen flex justify-center items-center bg-gray-900">
+      <div className="bg-gray-800 shadow-lg rounded-lg p-6 max-w-lg w-full">
+        <h1 className="text-3xl font-semibold text-gray-100 mb-4">
           Task Details
         </h1>
         <div className="space-y-4">
           <div>
-            <span className="font-medium text-gray-600">Name:</span>
-            <p className="text-lg text-gray-800">{task.username}</p>
+            <span className="font-medium text-gray-400">Name:</span>
+            <p className="text-lg text-gray-100">{task.username}</p>
           </div>
           <div>
-            <span className="font-medium text-gray-600">Email:</span>
-            <p className="text-lg text-gray-800">{task.email}</p>
+            <span className="font-medium text-gray-400">Email:</span>
+            <p className="text-lg text-gray-100">{task.email}</p>
           </div>
           <div>
-            <span className="font-medium text-gray-600">Title:</span>
-            <p className="text-lg text-gray-800">{task.title}</p>
+            <span className="font-medium text-gray-400">Title:</span>
+            <p className="text-lg text-gray-100">{task.title}</p>
           </div>
           <div>
-            <span className="font-medium text-gray-600">Status:</span>
+            <span className="font-medium text-gray-400">Status:</span>
             <p
               className={`text-lg ${
-                task.status ? "text-green-600" : "text-yellow-600"
+                task.status ? "text-green-400" : "text-yellow-400"
               }`}
             >
               {task.status ? "Completed" : "Pending"}
             </p>
           </div>
           <div>
-            <span className="font-medium text-gray-600">Created At:</span>
-            <p className="text-lg text-gray-800">
+            <span className="font-medium text-gray-400">Created At:</span>
+            <p className="text-lg text-gray-100">
               {new Date(task.createdAt).toLocaleString()}
             </p>
           </div>

@@ -17,6 +17,7 @@ import UserDashboard from "./screens/users/UserDashboard";
 import UserProfileScreen from "./screens/users/UserProfileScreen";
 import UserUpdateTodoScreen from "./screens/users/UserUpdateTodoScreen";
 import UserViewTodoScreen from "./screens/users/UserViewTodoScreen";
+import { authCheck } from "./utils/checkAuth.utils";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -24,16 +25,28 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/register" element={<RegisterScreen />} />
+        <Route
+          path="/register"
+          element={<RegisterScreen />}
+          loader={authCheck}
+        />
         <Route
           path="/"
           element={<LoginScreen />}
-          loader={() => null}
-          action={() => null}
+          loader={authCheck}
+          // action={() => null}
         />
-        <Route path="/login" element={<LoginScreen />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/user-dashboard" element={<UserDashboard />} />
+        <Route path="/login" element={<LoginScreen />} loader={authCheck} />
+        <Route
+          path="/admin-dashboard"
+          element={<AdminDashboard />}
+          loader={authCheck}
+        />
+        <Route
+          path="/user-dashboard"
+          element={<UserDashboard />}
+          loader={authCheck}
+        />
 
         {/* admin todo management route */}
         {/* <Route path="/getalltodos" element={<AdminTodos />} /> */}

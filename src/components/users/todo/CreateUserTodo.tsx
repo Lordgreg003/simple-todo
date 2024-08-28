@@ -40,23 +40,23 @@ const CreateUserTodo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center text-indigo-600 mb-6">
-          Create New Task
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="bg-gray-800 shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h1 className="text-2xl font-bold text-center text-indigo-400 mb-6">
+          Create New Todo
         </h1>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label
               htmlFor="username"
-              className="block text-sm font-semibold text-gray-600"
+              className="block text-sm font-semibold text-gray-300"
             >
               Username
             </label>
             <input
               type="text"
               id="username"
-              className="mt-1 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 p-3 block w-full border border-gray-600 rounded-lg shadow-sm bg-gray-700 text-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -65,14 +65,14 @@ const CreateUserTodo = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-semibold text-gray-600"
+              className="block text-sm font-semibold text-gray-300"
             >
               Email
             </label>
             <input
               type="email"
               id="email"
-              className="mt-1 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 p-3 block w-full border border-gray-600 rounded-lg shadow-sm bg-gray-700 text-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -81,14 +81,14 @@ const CreateUserTodo = () => {
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-semibold text-gray-600"
+              className="block text-sm font-semibold text-gray-300"
             >
               Title
             </label>
             <input
               type="text"
               id="title"
-              className="mt-1 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 p-3 block w-full border border-gray-600 rounded-lg shadow-sm bg-gray-700 text-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -97,14 +97,14 @@ const CreateUserTodo = () => {
           <div>
             <label
               htmlFor="text"
-              className="block text-sm font-semibold text-gray-600"
+              className="block text-sm font-semibold text-gray-300"
             >
               Text
             </label>
             <textarea
               id="text"
               rows={3}
-              className="mt-1 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 p-3 block w-full border border-gray-600 rounded-lg shadow-sm bg-gray-700 text-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={text}
               onChange={(e) => setText(e.target.value)}
               required
@@ -115,7 +115,7 @@ const CreateUserTodo = () => {
               type="submit"
               className={`w-full py-3 px-4 rounded-lg text-white font-bold shadow-lg transition duration-200 ${
                 loading
-                  ? "bg-gray-400 cursor-not-allowed"
+                  ? "bg-gray-600 cursor-not-allowed"
                   : "bg-indigo-500 hover:bg-indigo-600"
               }`}
               disabled={loading}
@@ -127,7 +127,7 @@ const CreateUserTodo = () => {
         <div className="mt-6 text-center">
           <Link
             to="/user-dashboard/getall"
-            className="text-indigo-500 hover:text-indigo-700"
+            className="text-indigo-400 hover:text-indigo-500"
           >
             Back to List
           </Link>

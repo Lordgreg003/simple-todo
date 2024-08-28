@@ -159,7 +159,7 @@ export const UserGetTodoByIdReducer = (
         ...initialState,
         loading: false,
         success: true,
-        serverResponse: action.payload.data,
+        serverResponse: action.payload,
       };
     case GET_USER_TODOBYID_FAIL:
       return {

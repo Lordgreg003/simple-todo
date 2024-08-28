@@ -6,13 +6,15 @@ import {
   UpdateProfileAction,
 } from "../../../redux/Actions/users/profile/UserProfileAction";
 import { ThunkDispatch } from "redux-thunk";
+import { useNavigate } from "react-router-dom";
 
 const ProfileScreen: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
+  const navigate = useNavigate(); // Hook for navigation
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [loadingUpdate, setLoadingUpdate] = useState(false); // New state for button loading
+  const [loadingUpdate, setLoadingUpdate] = useState(false);
 
   const { loading, error, serverResponse } = useSelector(
     (state: RootState) => state.getUserProfile
@@ -40,27 +42,35 @@ const ProfileScreen: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoadingUpdate(true); // Set loading to true when submitting
+    setLoadingUpdate(true);
     await dispatch(UpdateProfileAction({ name, username, email }));
-    setLoadingUpdate(false); // Set loading to false after dispatch is complete
+    setLoadingUpdate(false);
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-r from-teal-400 to-blue-500 p-6">
+    <div className="flex min-h-screen bg-gray-900 p-6">
       <div className="container mx-auto max-w-4xl p-4">
+        <div className="mb-6 flex items-center">
+          <button
+            onClick={() => navigate(-1)} // Go back to the previous page
+            className="text-teal-400 hover:text-teal-300 font-semibold"
+          >
+            &larr; Go Back
+          </button>
+        </div>
         <h2 className="text-3xl font-bold text-white mb-6 text-center">
           User Profile
         </h2>
         {loading ? (
-          <div className="flex justify-center items-center h-full text-xl text-white">
+          <div className="flex justify-center items-center h-full text-xl text-gray-400">
             Loading...
           </div>
         ) : error ? (
-          <p className="text-red-300 text-center">{error}</p>
+          <p className="text-red-500 text-center">{error}</p>
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl duration-300"
+            className="bg-gray-800 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl duration-300"
           >
             {updateSuccess && (
               <p className="text-green-500 text-center mb-4">
@@ -71,42 +81,42 @@ const ProfileScreen: React.FC = () => {
               <p className="text-red-500 text-center mb-4">{updateError}</p>
             )}
             <div className="mb-4">
-              <label className="block text-lg font-semibold mb-2">
+              <label className="block text-lg font-semibold text-gray-300 mb-2">
                 Name:
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
+                  className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-white"
                 />
               </label>
             </div>
             <div className="mb-4">
-              <label className="block text-lg font-semibold mb-2">
+              <label className="block text-lg font-semibold text-gray-300 mb-2">
                 Username:
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
+                  className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-white"
                 />
               </label>
             </div>
             <div className="mb-4">
-              <label className="block text-lg font-semibold mb-2">
+              <label className="block text-lg font-semibold text-gray-300 mb-2">
                 Email:
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
+                  className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-white"
                 />
               </label>
             </div>
             <button
               type="submit"
               className="w-full bg-teal-600 text-white p-2 rounded hover:bg-teal-700 flex items-center justify-center"
-              disabled={loadingUpdate} // Disable button while loading
+              disabled={loadingUpdate}
             >
               {loadingUpdate ? (
                 <svg
