@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/Store/store"; // Adjust the path accordingly
-// import {
-//   AdminGetTodoB,
-//   AdminUpdateTodoAction,
-// } from "../../../redux/Actions/admin/AdmintodoActions"; // Adjust the path accordingly
+
 import {
   adminGetUserByIdAction,
   adminUpdateUserAction,
@@ -53,7 +50,7 @@ const AdminUpdateUser: React.FC = () => {
     e.preventDefault();
     if (id) {
       dispatch(adminUpdateUserAction({ name, email, password, username, id }));
-      toast.success("Task updated successfully!", { position: "top-center" });
+      toast.success("User updated successfully!", { position: "top-center" });
     }
   };
 
@@ -118,7 +115,7 @@ const AdminUpdateUser: React.FC = () => {
               className="bg-blue-600 text-white border-2 border-blue-600 hover:bg-blue-700 rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               type="submit"
             >
-              Update Task
+              Update User
             </button>
           </div>
         </form>

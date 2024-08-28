@@ -1,12 +1,12 @@
-import Nav from "../../components/layout/Nav";
-import Foot from "../../components/layout/Foot";
 import Register from "../../components/auth/register/Register";
+import AuthFooter from "../../components/layout/auth/AuthFooter";
+import AuthNav from "../../components/layout/auth/AuthNav";
 const RegisterScreen = () => {
   return (
     <div>
-      <Nav />
+      <AuthNav />
       <Register />
-      <Foot />
+      <AuthFooter />
     </div>
   );
 };

@@ -79,9 +79,9 @@ const LoginScreen: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+      <div className="w-full max-w-md bg-gray-800 p-8 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold text-center text-white mb-6">
           Login To Your Greg Account
         </h2>
         <form onSubmit={submitHandler} className="space-y-4">
@@ -90,7 +90,7 @@ const LoginScreen: React.FC = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Username"
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
+            className="w-full p-3 border border-gray-700 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-teal-600"
           />
           <div className="relative">
             <input
@@ -98,11 +98,11 @@ const LoginScreen: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full p-3 border border-gray-700 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-teal-600"
             />
             <span
               onClick={togglePasswordVisibility}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 cursor-pointer"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer"
             >
               {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
             </span>
@@ -110,7 +110,7 @@ const LoginScreen: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 bg-purple-600 text-white font-bold rounded-md hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-300 transition duration-300 disabled:opacity-50"
+            className="w-full py-3 bg-teal-600 text-white font-bold rounded-md hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-teal-300 transition duration-300 disabled:opacity-50"
           >
             {isLoading ? (
               <div className="" style={{ height: "25px" }}>
@@ -125,9 +125,9 @@ const LoginScreen: React.FC = () => {
           <p className="text-center text-red-500 mt-4">Error: {error}</p>
         )}
         <div className="text-center mt-4">
-          <p className="text-gray-600">
+          <p className="text-gray-400">
             Don't have an account?{" "}
-            <Link to={"/register"} className="text-purple-600 hover:underline">
+            <Link to={"/register"} className="text-teal-400 hover:underline">
               Register here
             </Link>
           </p>

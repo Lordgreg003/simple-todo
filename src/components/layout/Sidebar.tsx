@@ -26,9 +26,12 @@ const Sidebar: React.FC = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         console.log("User confirmed logout");
+
+        // Dispatch the logout action to clear Redux state and localStorage
         dispatch(logoutAction());
+
         Swal.fire("Logged out!", "You have been logged out.", "success");
-        navigate("/login");
+        navigate("/login"); // Navigate to the login page after logout
       }
     });
   };

@@ -20,6 +20,7 @@ import {
 import { Dispatch } from "redux";
 import { ReduxResponseType } from "../Types/todoTypes";
 import { RootState } from "../Store/store";
+import { LOGIN_SESSION } from "../../extrastorage/storageStore";
 
 // Register Action
 export const registerAction =
@@ -102,24 +103,11 @@ export const loginAction =
     }
   };
 
-export const logoutAction =
-  () => async (dispatch: Dispatch, getState: () => RootState) => {
-    // Extract the token from the Redux state
-    const state = getState();
-    const loginUser = state.loginuser; // Adjust if necessary
-    const token = loginUser?.serverResponse?.data?.token;
+export const logoutAction = () => async (dispatch: Dispatch) => {
+  dispatch({ type: LOGIN_RESET });
 
-    console.log("Logging out, token:", token);
-
-    // Clear the token from local storage
-    localStorage.removeItem("token"); // Ensure this matches where you store the token
-    // If you're using cookies, clear them as well
-
-    // Verify that the token has been removed
-    console.log("Token after removal:", localStorage.getItem("token"));
-
-    // Dispatch an action to reset authentication state
-    dispatch({ type: LOGIN_RESET });
-
-    // Optionally, you might want to redirect or perform additional cleanup here
-  };
+  // Clear the login session from localStorage
+  if (typeof window !== "undefined") {
+    window.localStorage.removeItem(LOGIN_SESSION);
+  }
+};

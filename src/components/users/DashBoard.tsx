@@ -1,4 +1,3 @@
-// UserDashboard.tsx
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/Store/store";
@@ -24,41 +23,43 @@ const UserDashboard: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex h-[47.8rem] bg-gradient-to-r from-teal-400 to-blue-500 p-6 overflow-y-hidden">
+    <div className="flex h-[47.8rem] bg-gray-900 p-6 overflow-y-hidden text-white">
       <Sidebar />
-      <div className="flex-grow h-auto bg-gray-200 p-8">
+      <div className="flex-grow h-auto bg-gray-800 p-8">
         <Nav />
-        <main className="mt-8 bg-white p-6 rounded-lg">
-          <h2 className="text-3xl font-bold mb-6 text-center">User Profile</h2>
+        <main className="mt-8 bg-gray-700 p-6 rounded-lg shadow-lg">
+          <h2 className="text-3xl font-bold mb-6 text-center text-white">
+            User Profile
+          </h2>
 
           {loading ? (
-            <div className="flex justify-center items-center h-full text-xl text-gray-700">
+            <div className="flex justify-center items-center h-full text-xl text-gray-400">
               Loading...
             </div>
           ) : error ? (
-            <p className="text-red-300 text-center">{error}</p>
+            <p className="text-red-500 text-center">{error}</p>
           ) : (
-            <div className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl duration-300">
+            <div className="bg-gray-800 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl duration-300">
               <p className="text-lg font-semibold mb-2">
-                <strong className="text-teal-600">Name:</strong>{" "}
+                <strong className="text-teal-400">Name:</strong>{" "}
                 {data?.name || "N/A"}
               </p>
               <p className="text-lg font-semibold mb-2">
-                <strong className="text-teal-600">Username:</strong>{" "}
+                <strong className="text-teal-400">Username:</strong>{" "}
                 {data?.username || "N/A"}
               </p>
               <p className="text-lg font-semibold mb-2">
-                <strong className="text-teal-600">Email:</strong>{" "}
+                <strong className="text-teal-400">Email:</strong>{" "}
                 {data?.email || "N/A"}
               </p>
               <p className="text-lg font-semibold mb-2">
-                <strong className="text-teal-600">Created At:</strong>{" "}
+                <strong className="text-teal-400">Created At:</strong>{" "}
                 {data?.createdAt
                   ? new Date(data.createdAt).toLocaleString()
                   : "N/A"}
               </p>
               <p className="text-lg font-semibold mb-2">
-                <strong className="text-teal-600">Updated At:</strong>{" "}
+                <strong className="text-teal-400">Updated At:</strong>{" "}
                 {data?.updatedAt
                   ? new Date(data.updatedAt).toLocaleString()
                   : "N/A"}
