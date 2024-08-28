@@ -20,6 +20,11 @@ const RegisterComponent = () => {
   useEffect(() => {
     if (success) {
       setSuccessMessage("Registration Successful!");
+      // Clear the input fields
+      setName("");
+      setUsername("");
+      setEmail("");
+      setPassword("");
     }
   }, [success]);
 
