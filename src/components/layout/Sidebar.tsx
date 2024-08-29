@@ -39,7 +39,9 @@ const Sidebar: React.FC = () => {
   return (
     <div className="w-64 bg-gray-800 text-white min-h-auto flex flex-col">
       <nav className="flex-grow mt-4">
-        <div className="p-4 text-2xl font-bold bg-gray-900">Dashboard</div>
+        <Link to={"/user-dashboard"}>
+          <div className="p-4 text-2xl font-bold bg-gray-900">Dashboard</div>
+        </Link>
         <ul className="space-y-2">
           <li>
             <Link

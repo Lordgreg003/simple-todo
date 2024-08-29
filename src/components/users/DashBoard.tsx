@@ -29,7 +29,7 @@ const UserDashboard: React.FC = () => {
         <Nav />
         <main className="mt-8 bg-gray-700 p-6 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold mb-6 text-center text-white">
-            User Profile
+            User Dashboard
           </h2>
 
           {loading ? (

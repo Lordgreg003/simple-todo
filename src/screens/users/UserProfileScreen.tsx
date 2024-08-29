@@ -1,8 +1,13 @@
+import AuthFooter from "../../components/layout/auth/AuthFooter";
 import GetUserProfileById from "../../components/users/profile/GetUserProfileById";
 const UserProfileScreen = () => {
   return (
     <div>
-      <GetUserProfileById />
+      <div className="">
+        {/* <Sidebar /> */}
+        <GetUserProfileById />
+      </div>
+      <AuthFooter />
     </div>
   );
 };
