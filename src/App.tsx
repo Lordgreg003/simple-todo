@@ -17,7 +17,7 @@ import UserDashboard from "./screens/users/UserDashboard";
 import UserProfileScreen from "./screens/users/UserProfileScreen";
 import UserUpdateTodoScreen from "./screens/users/UserUpdateTodoScreen";
 import UserViewTodoScreen from "./screens/users/UserViewTodoScreen";
-import { authCheck } from "./utils/checkAuth.utils";
+import { authCheck, homeCheck } from "./utils/checkAuth.utils";
 
 const App: React.FC = () => {
   // const { user } = useSelector((state: RootState) => state.auth);
@@ -40,60 +40,87 @@ const App: React.FC = () => {
         <Route
           path="/admin-dashboard"
           element={<AdminDashboard />}
-          loader={authCheck}
+          loader={homeCheck}
         />
         <Route
           path="/user-dashboard"
           element={<UserDashboard />}
-          loader={authCheck}
+          loader={homeCheck}
         />
 
         {/* admin todo management route */}
         {/* <Route path="/getalltodos" element={<AdminTodos />} /> */}
-        <Route path="/admin-dashboard/getAlltodos" element={<AdminTodos />} />
-        <Route path="/admin-dashboard/view/:id" element={<AdminViewTodos />} />
-        <Route path="/admin-dashboard/edit/:id" element={<AdminUpdateTodo />} />
+        <Route
+          path="/admin-dashboard/getAlltodos"
+          element={<AdminTodos />}
+          loader={homeCheck}
+        />
+        <Route
+          path="/admin-dashboard/view/:id"
+          element={<AdminViewTodos />}
+          loader={homeCheck}
+        />
+        <Route
+          path="/admin-dashboard/edit/:id"
+          element={<AdminUpdateTodo />}
+          loader={homeCheck}
+        />
 
         {/* admin users managment */}
 
-        <Route path="/admin-dashboard/manage-users" element={<AdminUsers />} />
+        <Route
+          path="/admin-dashboard/manage-users"
+          element={<AdminUsers />}
+          loader={homeCheck}
+        />
         <Route
           path="/admin-dashboard/manage-users/create"
           element={<AdminCreateUsersScreen />}
+          loader={homeCheck}
         />
         <Route
           path="/admin-dashboard/manage-users/view/:id"
           element={<AdminViewUserScreen />}
+          loader={homeCheck}
         />
 
         <Route
           path="/admin-dashboard/manage-users/edit/:id"
           element={<AdminUpdateUserScreen />}
+          loader={homeCheck}
         />
 
         {/* user profile */}
         <Route path="/profile" element={<UserProfileScreen />} />
-        <Route path="/update-profile" element={<UpdateProfileScreen />} />
+        <Route
+          path="/update-profile"
+          element={<UpdateProfileScreen />}
+          loader={homeCheck}
+        />
 
         {/* user Todo */}
         <Route
           path="/user-dashboard/getall"
           element={<GetAllUserTodoScreen />}
+          loader={homeCheck}
         />
 
         <Route
           path="/user-dashboard/getall/create"
           element={<CreateUserTodoScreen />}
+          loader={homeCheck}
         />
 
         <Route
           path="/user-dashboard/getall/view/:id"
           element={<UserViewTodoScreen />}
+          loader={homeCheck}
         />
 
         <Route
           path="/user-dashboard/getall/edit/:id"
           element={<UserUpdateTodoScreen />}
+          loader={homeCheck}
         />
       </Routes>
     </Router>
